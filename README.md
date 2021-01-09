@@ -14,3 +14,20 @@ Recently I was writing a function a bit like `List.map` as part of my project, r
 | 10000  | 83.3         | 26.8                |
 
 ![Chart of benchmark results](./docs/chart.png)
+
+## Generality
+
+I _think_ the optimisation should work for most of the core List functions that are currently based on `foldr`, which is quite a few of them:
+
+- `List.map`
+- `List.indexedMap`
+- `List.filter`
+- `List.append`
+- `List.concat`
+- `List.intersperse`
+- `List.partition`
+- `List.unzip`
+
+However the `foldr` function itself seems to be too general. This optimisation relies on knowing the constructor for the return type.
+
+`List.partition` and `List.unzip` each return a tuple of lists rather than a single list, but it should be easy to extend the optimisation to cover that case.
