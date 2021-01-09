@@ -10,13 +10,13 @@ main =
     Benchmark.Runner.program suite
 
 
-foldrMap : (a -> b) -> List a -> List b
-foldrMap f xs =
-    List.foldr (\x acc -> f x :: acc) [] xs
+coreMap : (a -> b) -> List a -> List b
+coreMap f xs =
+    List.map f xs
 
 
-foldlMap : (a -> b) -> List a -> List b
-foldlMap f xs =
+moduloConsMap : (a -> b) -> List a -> List b
+moduloConsMap f xs =
     List.foldl (\x acc -> f x :: acc) [] xs
 
 
@@ -33,17 +33,17 @@ strings =
 
 suite : Benchmark
 suite =
-    describe "map with foldl vs foldr"
+    describe "map with moduloCons vs core"
         [ Benchmark.compare "list with 2000 integers"
-            "foldl"
-            (\_ -> foldlMap ((+) 5) ints)
-            "foldr"
-            (\_ -> foldrMap ((+) 5) ints)
+            "moduloCons"
+            (\_ -> moduloConsMap ((+) 5) ints)
+            "core"
+            (\_ -> coreMap ((+) 5) ints)
         , Benchmark.compare "list with 5 strings"
-            "foldl"
-            (\_ -> foldlMap String.reverse strings)
-            "foldr"
-            (\_ -> foldrMap String.reverse strings)
+            "moduloCons"
+            (\_ -> moduloConsMap String.reverse strings)
+            "core"
+            (\_ -> coreMap String.reverse strings)
         ]
 
 
