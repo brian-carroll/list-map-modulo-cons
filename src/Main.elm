@@ -2,7 +2,6 @@ module Main exposing (..)
 
 import Benchmark exposing (Benchmark, describe)
 import Benchmark.Runner exposing (BenchmarkProgram)
-import Char
 import List
 
 
@@ -18,7 +17,12 @@ coreMap f xs =
 
 moduloConsMap : (a -> b) -> List a -> List b
 moduloConsMap f xs =
-    List.foldl (\x acc -> f x :: acc) [] xs
+    -- Just a dummy Elm placeholder!
+    -- After compiling, copy compiled.html to modified.html and edit it.
+    -- Find the JS definition for `var $author$project$Main$moduloConsMap`
+    -- and replace it with the code in modulo-cons-map.js
+    -- Save modified.html and open it in a browser
+    List.map f xs
 
 
 listOfSize : Int -> List Int
@@ -26,27 +30,27 @@ listOfSize n =
     List.range 1 n
 
 
-scaleBenchmarkInt : String -> (List Int -> List Int) -> Benchmark
-scaleBenchmarkInt name intMapper =
-    List.range 0 3
-        |> List.map ((^) 10)
-        |> List.map (\size -> ( size, listOfSize size ))
-        |> List.map (\( size, target ) -> ( String.fromInt size, \_ -> intMapper target ))
-        |> Benchmark.scale name
-
-
-compareBenchmark : Benchmark
-compareBenchmark =
-    Benchmark.compare "list with 2000 integers"
+compareBenchmark : Int -> Benchmark
+compareBenchmark n =
+    let
+        list =
+            listOfSize n
+    in
+    Benchmark.compare ("list of " ++ String.fromInt n ++ " integers")
         "modulo-cons"
-        (\_ -> moduloConsMap ((+) 5) (listOfSize 2000))
+        (\_ -> moduloConsMap ((+) 5) list)
         "core"
-        (\_ -> coreMap ((+) 5) (listOfSize 2000))
+        (\_ -> coreMap ((+) 5) list)
+
+
+compareScale : List Benchmark
+compareScale =
+    List.range 1 4
+        |> List.map ((^) 10)
+        |> List.map compareBenchmark
 
 
 suite : Benchmark
 suite =
     describe "map modulo-cons vs core"
-        [ scaleBenchmarkInt "modulo-cons" (moduloConsMap ((+) 5))
-        , scaleBenchmarkInt "core" (coreMap ((+) 5))
-        ]
+        compareScale

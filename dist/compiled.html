@@ -14785,93 +14785,67 @@ var $elm_explorations$benchmark$Benchmark$Runner$program = function (benchmark) 
 			view: $elm_explorations$benchmark$Benchmark$Runner$App$view
 		});
 };
-var $author$project$Main$coreMap = F2(
-	function (f, xs) {
-		return A2($elm$core$List$map, f, xs);
-	});
-var $elm_explorations$benchmark$Benchmark$describe = $elm_explorations$benchmark$Benchmark$Benchmark$Group;
-var $author$project$Main$moduloConsMap = F2(
-	function (f, xs) {
-		return A3(
-			$elm$core$List$foldl,
-			F2(
-				function (x, acc) {
-					return A2(
-						$elm$core$List$cons,
-						f(x),
-						acc);
-				}),
-			_List_Nil,
-			xs);
-	});
-var $author$project$Main$listOfSize = function (n) {
-	return A2($elm$core$List$range, 1, n);
-};
 var $elm_explorations$benchmark$Benchmark$Status$Cold = {$: 'Cold'};
 var $elm_explorations$benchmark$Benchmark$LowLevel$operation = function (fn) {
 	return _Benchmark_operation(fn);
 };
-var $elm_explorations$benchmark$Benchmark$scale = F2(
-	function (name, series) {
+var $elm_explorations$benchmark$Benchmark$compare = F5(
+	function (name, name1, fn1, name2, fn2) {
 		return A2(
 			$elm_explorations$benchmark$Benchmark$Benchmark$Series,
 			name,
-			A2(
-				$elm$core$List$map,
-				function (_v0) {
-					var subName = _v0.a;
-					var fn = _v0.b;
-					return _Utils_Tuple3(
-						subName,
-						$elm_explorations$benchmark$Benchmark$LowLevel$operation(fn),
-						$elm_explorations$benchmark$Benchmark$Status$Cold);
-				},
-				series));
+			_List_fromArray(
+				[
+					_Utils_Tuple3(
+					name1,
+					$elm_explorations$benchmark$Benchmark$LowLevel$operation(fn1),
+					$elm_explorations$benchmark$Benchmark$Status$Cold),
+					_Utils_Tuple3(
+					name2,
+					$elm_explorations$benchmark$Benchmark$LowLevel$operation(fn2),
+					$elm_explorations$benchmark$Benchmark$Status$Cold)
+				]));
 	});
-var $author$project$Main$scaleBenchmarkInt = F2(
-	function (name, intMapper) {
-		return A2(
-			$elm_explorations$benchmark$Benchmark$scale,
-			name,
-			A2(
-				$elm$core$List$map,
-				function (_v0) {
-					var size = _v0.a;
-					var target = _v0.b;
-					return _Utils_Tuple2(
-						$elm$core$String$fromInt(size),
-						function (_v1) {
-							return intMapper(target);
-						});
-				},
-				A2(
-					$elm$core$List$map,
-					function (size) {
-						return _Utils_Tuple2(
-							size,
-							$author$project$Main$listOfSize(size));
-					},
-					A2(
-						$elm$core$List$map,
-						$elm$core$Basics$pow(10),
-						A2($elm$core$List$range, 0, 3)))));
+var $author$project$Main$coreMap = F2(
+	function (f, xs) {
+		return A2($elm$core$List$map, f, xs);
 	});
-var $author$project$Main$suite = A2(
-	$elm_explorations$benchmark$Benchmark$describe,
-	'map modulo-cons vs core',
-	_List_fromArray(
-		[
-			A2(
-			$author$project$Main$scaleBenchmarkInt,
-			'modulo-cons',
-			$author$project$Main$moduloConsMap(
-				$elm$core$Basics$add(5))),
-			A2(
-			$author$project$Main$scaleBenchmarkInt,
-			'core',
-			$author$project$Main$coreMap(
-				$elm$core$Basics$add(5)))
-		]));
+var $author$project$Main$listOfSize = function (n) {
+	return A2($elm$core$List$range, 1, n);
+};
+var $author$project$Main$moduloConsMap = F2(
+	function (f, xs) {
+		return A2($elm$core$List$map, f, xs);
+	});
+var $author$project$Main$compareBenchmark = function (n) {
+	var list = $author$project$Main$listOfSize(n);
+	return A5(
+		$elm_explorations$benchmark$Benchmark$compare,
+		'list of ' + ($elm$core$String$fromInt(n) + ' integers'),
+		'modulo-cons',
+		function (_v0) {
+			return A2(
+				$author$project$Main$moduloConsMap,
+				$elm$core$Basics$add(5),
+				list);
+		},
+		'core',
+		function (_v1) {
+			return A2(
+				$author$project$Main$coreMap,
+				$elm$core$Basics$add(5),
+				list);
+		});
+};
+var $author$project$Main$compareScale = A2(
+	$elm$core$List$map,
+	$author$project$Main$compareBenchmark,
+	A2(
+		$elm$core$List$map,
+		$elm$core$Basics$pow(10),
+		A2($elm$core$List$range, 1, 4)));
+var $elm_explorations$benchmark$Benchmark$describe = $elm_explorations$benchmark$Benchmark$Benchmark$Group;
+var $author$project$Main$suite = A2($elm_explorations$benchmark$Benchmark$describe, 'map modulo-cons vs core', $author$project$Main$compareScale);
 var $author$project$Main$main = $elm_explorations$benchmark$Benchmark$Runner$program($author$project$Main$suite);
 _Platform_export({'Main':{'init':$author$project$Main$main(
 	$elm$json$Json$Decode$succeed(_Utils_Tuple0))(0)}});}(this));

@@ -1,3 +1,4 @@
+// https://en.wikipedia.org/wiki/Tail_call#Tail_recursion_modulo_cons
 var $author$project$Main$moduloConsMap = F2(function(f, xs) {
   var tmp = _List_Cons(undefined, _List_Nil);
   var end = tmp;
