@@ -1,8 +1,9 @@
 module Main exposing (..)
 
-import Benchmark exposing (..)
+import Benchmark exposing (Benchmark, describe)
 import Benchmark.Runner exposing (BenchmarkProgram)
 import Char
+import List
 
 
 main : BenchmarkProgram
@@ -20,43 +21,32 @@ moduloConsMap f xs =
     List.foldl (\x acc -> f x :: acc) [] xs
 
 
-ints : List Int
-ints =
-    List.range 1 2000
+listOfSize : Int -> List Int
+listOfSize n =
+    List.range 1 n
 
 
-strings : List String
-strings =
-    List.range 1 5
-        |> List.map (Char.fromCode >> String.fromChar)
+scaleBenchmarkInt : String -> (List Int -> List Int) -> Benchmark
+scaleBenchmarkInt name intMapper =
+    List.range 0 3
+        |> List.map ((^) 10)
+        |> List.map (\size -> ( size, listOfSize size ))
+        |> List.map (\( size, target ) -> ( String.fromInt size, \_ -> intMapper target ))
+        |> Benchmark.scale name
+
+
+compareBenchmark : Benchmark
+compareBenchmark =
+    Benchmark.compare "list with 2000 integers"
+        "modulo-cons"
+        (\_ -> moduloConsMap ((+) 5) (listOfSize 2000))
+        "core"
+        (\_ -> coreMap ((+) 5) (listOfSize 2000))
 
 
 suite : Benchmark
 suite =
-    describe "map with moduloCons vs core"
-        [ Benchmark.compare "list with 2000 integers"
-            "moduloCons"
-            (\_ -> moduloConsMap ((+) 5) ints)
-            "core"
-            (\_ -> coreMap ((+) 5) ints)
-        , Benchmark.compare "list with 5 strings"
-            "moduloCons"
-            (\_ -> moduloConsMap String.reverse strings)
-            "core"
-            (\_ -> coreMap String.reverse strings)
+    describe "map modulo-cons vs core"
+        [ scaleBenchmarkInt "modulo-cons" (moduloConsMap ((+) 5))
+        , scaleBenchmarkInt "core" (coreMap ((+) 5))
         ]
-
-
-type alias DurationStats =
-    { average : Float
-    , durations : Int
-    }
-
-
-addDuration : Int -> DurationStats -> DurationStats
-addDuration duration stats =
-    { average =
-        ((stats.average * toFloat stats.durations) + toFloat duration)
-            / (toFloat stats.durations + 1)
-    , durations = stats.durations + 1
-    }
