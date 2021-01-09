@@ -33,3 +33,21 @@ I _think_ the optimisation should work for most of the core List functions that 
 However the `foldr` function itself seems to be too general. This optimisation relies on knowing the constructor for the return type.
 
 `List.partition` and `List.unzip` each return a tuple of lists rather than a single list, but it should be easy to extend the optimisation to cover that case.
+
+## Running the benchmark
+
+Edit with the [Elm Benchmark](https://package.elm-lang.org/packages/elm-explorations/benchmark/latest) code till you're happy with it. Then do this:
+
+```bash
+elm make src/Main.elm --output dist/compiled.html
+cp dist/compiled.html dist/modified.html
+``` 
+
+Now open modified.html in an editor and find this variable definition
+```js
+var $author$project$Main$moduloConsMap
+```
+
+Replace it with the code in src/modulo-cons-map.js
+
+Load modified.html in a browser
