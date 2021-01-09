@@ -8,10 +8,12 @@ Recently I was writing a function a bit like `List.map` as part of my project, r
 
 | length | Core ns/cell | Modulo Cons ns/cell |
 | ------ | ------------ | ------------------- |
-| 10     | 79.6         | 30.8                |
-| 100    | 69.6         | 23.9                |
-| 1000   | 68.6         | 24.2                |
-| 10000  | 83.3         | 26.8                |
+| 10     | 74.5         | 11.3                |
+| 100    | 63.3         | 8.5                 |
+| 1000   | 65.1         | 8.4                 |
+| 10000  | 75.2         | 9.8                 |
+| 20000  | 85.0         | 11.4                |
+| 50000  | 100.0        | 16.5                |
 
 ![Chart of benchmark results](./docs/chart.png)
 

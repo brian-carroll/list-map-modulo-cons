@@ -14837,15 +14837,14 @@ var $author$project$Main$compareBenchmark = function (n) {
 				list);
 		});
 };
-var $author$project$Main$compareScale = A2(
-	$elm$core$List$map,
-	$author$project$Main$compareBenchmark,
-	A2(
-		$elm$core$List$map,
-		$elm$core$Basics$pow(10),
-		A2($elm$core$List$range, 1, 4)));
 var $elm_explorations$benchmark$Benchmark$describe = $elm_explorations$benchmark$Benchmark$Benchmark$Group;
-var $author$project$Main$suite = A2($elm_explorations$benchmark$Benchmark$describe, 'map modulo-cons vs core', $author$project$Main$compareScale);
+var $author$project$Main$suite = A2(
+	$elm_explorations$benchmark$Benchmark$describe,
+	'map modulo-cons vs core',
+	_List_fromArray(
+		[
+			$author$project$Main$compareBenchmark(10000)
+		]));
 var $author$project$Main$main = $elm_explorations$benchmark$Benchmark$Runner$program($author$project$Main$suite);
 _Platform_export({'Main':{'init':$author$project$Main$main(
 	$elm$json$Json$Decode$succeed(_Utils_Tuple0))(0)}});}(this));

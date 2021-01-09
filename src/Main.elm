@@ -53,4 +53,4 @@ compareScale =
 suite : Benchmark
 suite =
     describe "map modulo-cons vs core"
-        compareScale
+        [ compareBenchmark 50000 ]
