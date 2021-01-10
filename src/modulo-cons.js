@@ -45,3 +45,19 @@ var $author$project$Main$moduloConsFilter = F2(function (f, xs) {
   }
   return tmp.b;
 });
+
+var $author$project$Main$moduloConsAppend = F2(function (xs, ys) {
+  if (!xs.b) {
+    return ys;
+  }
+  var tmp = _List_Cons(undefined, _List_Nil);
+  var end = tmp;
+  while (xs.b) {
+    end.b = _List_Cons(xs.a, _List_Nil);
+    end = end.b;
+    xs = xs.b;
+  }
+  end.b = ys;
+
+  return tmp.b;
+});

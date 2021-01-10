@@ -14785,7 +14785,6 @@ var $elm_explorations$benchmark$Benchmark$Runner$program = function (benchmark) 
 			view: $elm_explorations$benchmark$Benchmark$Runner$App$view
 		});
 };
-var $elm_explorations$benchmark$Benchmark$describe = $elm_explorations$benchmark$Benchmark$Benchmark$Group;
 var $elm_explorations$benchmark$Benchmark$Status$Cold = {$: 'Cold'};
 var $elm_explorations$benchmark$Benchmark$LowLevel$operation = function (fn) {
 	return _Benchmark_operation(fn);
@@ -14811,6 +14810,74 @@ var $author$project$Main$listOfSize = function (n) {
 	return A2($elm$core$List$range, 1, n);
 };
 var $elm$core$Debug$log = _Debug_log;
+var $author$project$Main$moduloConsAppend = $elm$core$List$append;
+var $author$project$Main$appendBenchmark = function (n) {
+	var list = $author$project$Main$listOfSize(n);
+	var _v0 = A2(
+		$elm$core$Debug$log,
+		'append is correct',
+		_Utils_eq(
+			A2($author$project$Main$moduloConsAppend, list, list),
+			A2($elm$core$List$append, list, list)));
+	return A5(
+		$elm_explorations$benchmark$Benchmark$compare,
+		'list of ' + ($elm$core$String$fromInt(n) + ' integers'),
+		'append modulo-cons',
+		function (_v1) {
+			return A2($author$project$Main$moduloConsAppend, list, list);
+		},
+		'append core',
+		function (_v2) {
+			return A2($elm$core$List$append, list, list);
+		});
+};
+var $elm_explorations$benchmark$Benchmark$describe = $elm_explorations$benchmark$Benchmark$Benchmark$Group;
+var $author$project$Main$moduloConsFilter = $elm$core$List$filter;
+var $author$project$Main$filterBenchmark = function (n) {
+	var list = $author$project$Main$listOfSize(n);
+	var f = function (x) {
+		return !(x % 2);
+	};
+	var _v0 = A2(
+		$elm$core$Debug$log,
+		'filter is correct',
+		_Utils_eq(
+			A2($author$project$Main$moduloConsFilter, f, list),
+			A2($elm$core$List$filter, f, list)));
+	return A5(
+		$elm_explorations$benchmark$Benchmark$compare,
+		'list of ' + ($elm$core$String$fromInt(n) + ' integers'),
+		'filter modulo-cons',
+		function (_v1) {
+			return A2($author$project$Main$moduloConsFilter, f, list);
+		},
+		'filter core',
+		function (_v2) {
+			return A2($elm$core$List$filter, f, list);
+		});
+};
+var $author$project$Main$moduloConsIndexedMap = $elm$core$List$indexedMap;
+var $author$project$Main$indexedMapBenchmark = function (n) {
+	var list = $author$project$Main$listOfSize(n);
+	var f = $elm$core$Basics$add;
+	var _v0 = A2(
+		$elm$core$Debug$log,
+		'indexedMap is correct',
+		_Utils_eq(
+			A2($author$project$Main$moduloConsIndexedMap, f, list),
+			A2($elm$core$List$indexedMap, f, list)));
+	return A5(
+		$elm_explorations$benchmark$Benchmark$compare,
+		'list of ' + ($elm$core$String$fromInt(n) + ' integers'),
+		'indexedMap modulo-cons',
+		function (_v1) {
+			return A2($author$project$Main$moduloConsIndexedMap, f, list);
+		},
+		'indexedMap core',
+		function (_v2) {
+			return A2($elm$core$List$indexedMap, f, list);
+		});
+};
 var $author$project$Main$moduloConsMap2 = $elm$core$List$map2;
 var $author$project$Main$map2Benchmark = function (n) {
 	var list = $author$project$Main$listOfSize(n);
@@ -14836,6 +14903,31 @@ var $author$project$Main$map2Benchmark = function (n) {
 			return A2($elm$core$List$map2, f, list);
 		});
 };
+var $author$project$Main$moduloConsMap = F2(
+	function (f, xs) {
+		return A2($elm$core$List$map, f, xs);
+	});
+var $author$project$Main$mapBenchmark = function (n) {
+	var list = $author$project$Main$listOfSize(n);
+	var f = $elm$core$Basics$add(5);
+	var _v0 = A2(
+		$elm$core$Debug$log,
+		'map is correct',
+		_Utils_eq(
+			A2($author$project$Main$moduloConsMap, f, list),
+			A2($elm$core$List$map, f, list)));
+	return A5(
+		$elm_explorations$benchmark$Benchmark$compare,
+		'list of ' + ($elm$core$String$fromInt(n) + ' integers'),
+		'map modulo-cons',
+		function (_v1) {
+			return A2($author$project$Main$moduloConsMap, f, list);
+		},
+		'map core',
+		function (_v2) {
+			return A2($elm$core$List$map, f, list);
+		});
+};
 var $author$project$Main$suite = function () {
 	var n = 1000;
 	return A2(
@@ -14843,7 +14935,11 @@ var $author$project$Main$suite = function () {
 		'modulo-cons vs core',
 		_List_fromArray(
 			[
-				$author$project$Main$map2Benchmark(n)
+				$author$project$Main$mapBenchmark(n),
+				$author$project$Main$map2Benchmark(n),
+				$author$project$Main$indexedMapBenchmark(n),
+				$author$project$Main$filterBenchmark(n),
+				$author$project$Main$appendBenchmark(n)
 			]));
 }();
 // https://en.wikipedia.org/wiki/Tail_call#Tail_recursion_modulo_cons
@@ -14857,6 +14953,7 @@ var $author$project$Main$moduloConsMap = F2(function (f, xs) {
   }
   return tmp.b;
 });
+
 var $author$project$Main$moduloConsMap2 = F3(function (f, xs, ys) {
   var tmp = _List_Cons(undefined, _List_Nil);
   var end = tmp;
@@ -14868,6 +14965,7 @@ var $author$project$Main$moduloConsMap2 = F3(function (f, xs, ys) {
   }
   return tmp.b;
 });
+
 var $author$project$Main$moduloConsIndexedMap = F2(function (f, xs) {
   var tmp = _List_Cons(undefined, _List_Nil);
   var end = tmp;
@@ -14889,6 +14987,22 @@ var $author$project$Main$moduloConsFilter = F2(function (f, xs) {
     }
     xs = xs.b;
   }
+  return tmp.b;
+});
+
+var $author$project$Main$moduloConsAppend = F2(function (xs, ys) {
+  if (!xs.b) {
+    return ys;
+  }
+  var tmp = _List_Cons(undefined, _List_Nil);
+  var end = tmp;
+  while (xs.b) {
+    end.b = _List_Cons(xs.a, _List_Nil);
+    end = end.b;
+    xs = xs.b;
+  }
+  end.b = ys;
+
   return tmp.b;
 });
 

@@ -35,6 +35,10 @@ moduloConsFilter =
     List.filter
 
 
+moduloConsAppend =
+    List.append
+
+
 listOfSize : Int -> List Int
 listOfSize n =
     List.range 1 n
@@ -118,6 +122,23 @@ filterBenchmark n =
         (\_ -> List.filter f list)
 
 
+appendBenchmark : Int -> Benchmark
+appendBenchmark n =
+    let
+        list =
+            listOfSize n
+
+        _ =
+            Debug.log "append is correct"
+                (moduloConsAppend list list == List.append list list)
+    in
+    Benchmark.compare ("list of " ++ String.fromInt n ++ " integers")
+        "append modulo-cons"
+        (\_ -> moduloConsAppend list list)
+        "append core"
+        (\_ -> List.append list list)
+
+
 suite : Benchmark
 suite =
     let
@@ -125,12 +146,10 @@ suite =
             1000
     in
     describe "modulo-cons vs core"
-        [ map2Benchmark n ]
-
-
-
--- [ mapBenchmark n
--- , map2Benchmark n
--- , indexedMapBenchmark n
--- , filterBenchmark n
--- ]
+        -- [ appendBenchmark n ]
+        [ mapBenchmark n
+        , map2Benchmark n
+        , indexedMapBenchmark n
+        , filterBenchmark n
+        , appendBenchmark n
+        ]
