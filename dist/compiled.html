@@ -14810,6 +14810,27 @@ var $author$project$Main$listOfSize = function (n) {
 	return A2($elm$core$List$range, 1, n);
 };
 var $elm$core$Debug$log = _Debug_log;
+var $author$project$Main$moduloConsAppend = $elm$core$List$append;
+var $author$project$Main$appendBenchmark = function (n) {
+	var list = $author$project$Main$listOfSize(n);
+	var _v0 = A2(
+		$elm$core$Debug$log,
+		'append is correct',
+		_Utils_eq(
+			A2($author$project$Main$moduloConsAppend, list, list),
+			A2($elm$core$List$append, list, list)));
+	return A5(
+		$elm_explorations$benchmark$Benchmark$compare,
+		'list of ' + ($elm$core$String$fromInt(n) + ' integers'),
+		'append modulo-cons',
+		function (_v1) {
+			return A2($author$project$Main$moduloConsAppend, list, list);
+		},
+		'append core',
+		function (_v2) {
+			return A2($elm$core$List$append, list, list);
+		});
+};
 var $author$project$Main$moduloConsConcat = $elm$core$List$concat;
 var $author$project$Main$concatBenchmark = function (n) {
 	var list1 = $author$project$Main$listOfSize(n);
@@ -14844,6 +14865,142 @@ var $author$project$Main$concatBenchmark = function (n) {
 		});
 };
 var $elm_explorations$benchmark$Benchmark$describe = $elm_explorations$benchmark$Benchmark$Benchmark$Group;
+var $author$project$Main$moduloConsFilter = $elm$core$List$filter;
+var $author$project$Main$filterBenchmark = function (n) {
+	var list = $author$project$Main$listOfSize(n);
+	var f = function (x) {
+		return !(x % 2);
+	};
+	var _v0 = A2(
+		$elm$core$Debug$log,
+		'filter is correct',
+		_Utils_eq(
+			A2($author$project$Main$moduloConsFilter, f, list),
+			A2($elm$core$List$filter, f, list)));
+	return A5(
+		$elm_explorations$benchmark$Benchmark$compare,
+		'list of ' + ($elm$core$String$fromInt(n) + ' integers'),
+		'filter modulo-cons',
+		function (_v1) {
+			return A2($author$project$Main$moduloConsFilter, f, list);
+		},
+		'filter core',
+		function (_v2) {
+			return A2($elm$core$List$filter, f, list);
+		});
+};
+var $author$project$Main$moduloConsIndexedMap = $elm$core$List$indexedMap;
+var $author$project$Main$indexedMapBenchmark = function (n) {
+	var list = $author$project$Main$listOfSize(n);
+	var f = $elm$core$Basics$add;
+	var _v0 = A2(
+		$elm$core$Debug$log,
+		'indexedMap is correct',
+		_Utils_eq(
+			A2($author$project$Main$moduloConsIndexedMap, f, list),
+			A2($elm$core$List$indexedMap, f, list)));
+	return A5(
+		$elm_explorations$benchmark$Benchmark$compare,
+		'list of ' + ($elm$core$String$fromInt(n) + ' integers'),
+		'indexedMap modulo-cons',
+		function (_v1) {
+			return A2($author$project$Main$moduloConsIndexedMap, f, list);
+		},
+		'indexedMap core',
+		function (_v2) {
+			return A2($elm$core$List$indexedMap, f, list);
+		});
+};
+var $elm$core$List$intersperse = F2(
+	function (sep, xs) {
+		if (!xs.b) {
+			return _List_Nil;
+		} else {
+			var hd = xs.a;
+			var tl = xs.b;
+			var step = F2(
+				function (x, rest) {
+					return A2(
+						$elm$core$List$cons,
+						sep,
+						A2($elm$core$List$cons, x, rest));
+				});
+			var spersed = A3($elm$core$List$foldr, step, _List_Nil, tl);
+			return A2($elm$core$List$cons, hd, spersed);
+		}
+	});
+var $author$project$Main$moduloConsIntersperse = $elm$core$List$intersperse;
+var $author$project$Main$intersperseBenchmark = function (n) {
+	var sep = -1;
+	var list = $author$project$Main$listOfSize(n);
+	var _v0 = A2(
+		$elm$core$Debug$log,
+		'intersperse is correct',
+		_Utils_eq(
+			A2($author$project$Main$moduloConsIntersperse, sep, list),
+			A2($elm$core$List$intersperse, sep, list)));
+	return A5(
+		$elm_explorations$benchmark$Benchmark$compare,
+		'list of ' + ($elm$core$String$fromInt(n) + ' integers'),
+		'intersperse modulo-cons',
+		function (_v1) {
+			return A2($author$project$Main$moduloConsIntersperse, sep, list);
+		},
+		'intersperse core',
+		function (_v2) {
+			return A2($elm$core$List$intersperse, sep, list);
+		});
+};
+var $author$project$Main$moduloConsMap2 = $elm$core$List$map2;
+var $author$project$Main$map2Benchmark = function (n) {
+	var list = $author$project$Main$listOfSize(n);
+	var f = F2(
+		function (x, y) {
+			return x + y;
+		});
+	var _v0 = A2(
+		$elm$core$Debug$log,
+		'map2 is correct',
+		_Utils_eq(
+			A3($author$project$Main$moduloConsMap2, f, list, list),
+			A3($elm$core$List$map2, f, list, list)));
+	return A5(
+		$elm_explorations$benchmark$Benchmark$compare,
+		'list of ' + ($elm$core$String$fromInt(n) + ' integers'),
+		'map2 modulo-cons',
+		function (_v1) {
+			return A2($author$project$Main$moduloConsMap2, f, list);
+		},
+		'map2 core',
+		function (_v2) {
+			return A2($elm$core$List$map2, f, list);
+		});
+};
+var $author$project$Main$moduloConsMap = F2(
+	function (f, xs) {
+		return A2($elm$core$List$map, f, xs);
+	});
+var $author$project$Main$mapBenchmark = function (n) {
+	var list = $author$project$Main$listOfSize(n);
+	var f = $elm$core$Basics$add(5);
+	var _v0 = A2(
+		$elm$core$Debug$log,
+		'map is correct',
+		_Utils_eq(
+			A2($author$project$Main$moduloConsMap, f, list),
+			A2($elm$core$List$map, f, list)));
+	return A5(
+		$elm_explorations$benchmark$Benchmark$compare,
+		'list of ' + ($elm$core$String$fromInt(n) + ' integers'),
+		'map modulo-cons',
+		function (_v1) {
+			return A2($author$project$Main$moduloConsMap, f, list);
+		},
+		'map core',
+		function (_v2) {
+			return A2($elm$core$List$map, f, list);
+		});
+};
 var $author$project$Main$suite = function () {
 	var n = 1000;
 	return A2(
@@ -14851,7 +15008,13 @@ var $author$project$Main$suite = function () {
 		'modulo-cons vs core',
 		_List_fromArray(
 			[
-				$author$project$Main$concatBenchmark(n)
+				$author$project$Main$mapBenchmark(n),
+				$author$project$Main$map2Benchmark(n),
+				$author$project$Main$indexedMapBenchmark(n),
+				$author$project$Main$filterBenchmark(n),
+				$author$project$Main$appendBenchmark(n),
+				$author$project$Main$concatBenchmark(n),
+				$author$project$Main$intersperseBenchmark(n)
 			]));
 }();
 var $author$project$Main$main = $elm_explorations$benchmark$Benchmark$Runner$program($author$project$Main$suite);

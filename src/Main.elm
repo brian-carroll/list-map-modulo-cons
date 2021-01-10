@@ -43,6 +43,10 @@ moduloConsConcat =
     List.concat
 
 
+moduloConsIntersperse =
+    List.intersperse
+
+
 listOfSize : Int -> List Int
 listOfSize n =
     List.range 1 n
@@ -163,6 +167,26 @@ concatBenchmark n =
         (\_ -> List.concat [ list1, list2 ])
 
 
+intersperseBenchmark : Int -> Benchmark
+intersperseBenchmark n =
+    let
+        list =
+            listOfSize n
+
+        sep =
+            -1
+
+        _ =
+            Debug.log "intersperse is correct"
+                (moduloConsIntersperse sep list == List.intersperse sep list)
+    in
+    Benchmark.compare ("list of " ++ String.fromInt n ++ " integers")
+        "intersperse modulo-cons"
+        (\_ -> moduloConsIntersperse sep list)
+        "intersperse core"
+        (\_ -> List.intersperse sep list)
+
+
 suite : Benchmark
 suite =
     let
@@ -170,13 +194,12 @@ suite =
             1000
     in
     describe "modulo-cons vs core"
-        [ concatBenchmark n ]
-
-
-
--- [ mapBenchmark n
--- , map2Benchmark n
--- , indexedMapBenchmark n
--- , filterBenchmark n
--- , appendBenchmark n
--- ]
+        -- [ intersperseBenchmark n ]
+        [ mapBenchmark n
+        , map2Benchmark n
+        , indexedMapBenchmark n
+        , filterBenchmark n
+        , appendBenchmark n
+        , concatBenchmark n
+        , intersperseBenchmark n
+        ]
