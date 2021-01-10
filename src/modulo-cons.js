@@ -11,6 +11,7 @@ var $author$project$Main$moduloConsMap = F2(function (f, xs) {
   return tmp.b;
 });
 
+// slower than core
 var $author$project$Main$moduloConsMap2 = F3(function (f, xs, ys) {
   var tmp = _List_Cons(undefined, _List_Nil);
   var end = tmp;
@@ -51,9 +52,6 @@ var $author$project$Main$moduloConsFilter = F2(function (f, xs) {
 });
 
 var $author$project$Main$moduloConsAppend = F2(function (xs, ys) {
-  if (!xs.b) {
-    return ys;
-  }
   var tmp = _List_Cons(undefined, _List_Nil);
   var end = tmp;
   while (xs.b) {
@@ -72,9 +70,6 @@ var $author$project$Main$moduloConsConcat = function (lists) {
   var end = tmp;
   if (!lists.b) {
     return _List_Nil;
-  }
-  if (!lists.b.b) {
-    return lists.a;
   }
   for (; lists.b.b; lists = lists.b) {
     var xs = lists.a;
