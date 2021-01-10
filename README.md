@@ -45,10 +45,10 @@ cp dist/compiled.html dist/modified.html
 
 Now open modified.html in an editor and find this variable definition
 ```js
-var $author$project$Main$moduloConsMap
+var $author$project$Main$main = $elm_explorations$benchmark$Benchmark$Runner$program($author$project$Main$suite);
 ```
 
-Replace it with the code in src/modulo-cons-map.js
+Just _before_ this line, paste in the the code from src/modulo-cons-map.js
 
 Load modified.html in a browser
 

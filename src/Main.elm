@@ -3,6 +3,7 @@ module Main exposing (..)
 import Benchmark exposing (Benchmark, describe)
 import Benchmark.Runner exposing (BenchmarkProgram)
 import List
+import Tuple
 
 
 main : BenchmarkProgram
@@ -45,6 +46,14 @@ moduloConsConcat =
 
 moduloConsIntersperse =
     List.intersperse
+
+
+moduloConsPartition =
+    List.partition
+
+
+moduloConsUnzip =
+    List.unzip
 
 
 listOfSize : Int -> List Int
@@ -187,6 +196,44 @@ intersperseBenchmark n =
         (\_ -> List.intersperse sep list)
 
 
+partitionBenchmark : Int -> Benchmark
+partitionBenchmark n =
+    let
+        list =
+            listOfSize n
+
+        f x =
+            remainderBy 2 x == 0
+
+        _ =
+            Debug.log "partition is correct"
+                (moduloConsPartition f list == List.partition f list)
+    in
+    Benchmark.compare ("list of " ++ String.fromInt n ++ " integers")
+        "partition modulo-cons"
+        (\_ -> moduloConsPartition f list)
+        "partition core"
+        (\_ -> List.partition f list)
+
+
+unzipBenchmark : Int -> Benchmark
+unzipBenchmark n =
+    let
+        list =
+            listOfSize n
+                |> List.map (\x -> ( x, n + x ))
+
+        _ =
+            Debug.log "unzip is correct"
+                (moduloConsUnzip list == List.unzip list)
+    in
+    Benchmark.compare ("list of " ++ String.fromInt n ++ " integers")
+        "unzip modulo-cons"
+        (\_ -> moduloConsUnzip list)
+        "unzip core"
+        (\_ -> List.unzip list)
+
+
 suite : Benchmark
 suite =
     let
@@ -194,7 +241,6 @@ suite =
             1000
     in
     describe "modulo-cons vs core"
-        -- [ intersperseBenchmark n ]
         [ mapBenchmark n
         , map2Benchmark n
         , indexedMapBenchmark n
@@ -202,4 +248,6 @@ suite =
         , appendBenchmark n
         , concatBenchmark n
         , intersperseBenchmark n
+        , partitionBenchmark n
+        , unzipBenchmark n
         ]

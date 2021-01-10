@@ -15001,6 +15001,56 @@ var $author$project$Main$mapBenchmark = function (n) {
 			return A2($elm$core$List$map, f, list);
 		});
 };
+var $author$project$Main$moduloConsPartition = $elm$core$List$partition;
+var $author$project$Main$partitionBenchmark = function (n) {
+	var list = $author$project$Main$listOfSize(n);
+	var f = function (x) {
+		return !(x % 2);
+	};
+	var _v0 = A2(
+		$elm$core$Debug$log,
+		'partition is correct',
+		_Utils_eq(
+			A2($author$project$Main$moduloConsPartition, f, list),
+			A2($elm$core$List$partition, f, list)));
+	return A5(
+		$elm_explorations$benchmark$Benchmark$compare,
+		'list of ' + ($elm$core$String$fromInt(n) + ' integers'),
+		'partition modulo-cons',
+		function (_v1) {
+			return A2($author$project$Main$moduloConsPartition, f, list);
+		},
+		'partition core',
+		function (_v2) {
+			return A2($elm$core$List$partition, f, list);
+		});
+};
+var $author$project$Main$moduloConsUnzip = $elm$core$List$unzip;
+var $author$project$Main$unzipBenchmark = function (n) {
+	var list = A2(
+		$elm$core$List$map,
+		function (x) {
+			return _Utils_Tuple2(x, n + x);
+		},
+		$author$project$Main$listOfSize(n));
+	var _v0 = A2(
+		$elm$core$Debug$log,
+		'unzip is correct',
+		_Utils_eq(
+			$author$project$Main$moduloConsUnzip(list),
+			$elm$core$List$unzip(list)));
+	return A5(
+		$elm_explorations$benchmark$Benchmark$compare,
+		'list of ' + ($elm$core$String$fromInt(n) + ' integers'),
+		'unzip modulo-cons',
+		function (_v1) {
+			return $author$project$Main$moduloConsUnzip(list);
+		},
+		'unzip core',
+		function (_v2) {
+			return $elm$core$List$unzip(list);
+		});
+};
 var $author$project$Main$suite = function () {
 	var n = 1000;
 	return A2(
@@ -15014,7 +15064,9 @@ var $author$project$Main$suite = function () {
 				$author$project$Main$filterBenchmark(n),
 				$author$project$Main$appendBenchmark(n),
 				$author$project$Main$concatBenchmark(n),
-				$author$project$Main$intersperseBenchmark(n)
+				$author$project$Main$intersperseBenchmark(n),
+				$author$project$Main$partitionBenchmark(n),
+				$author$project$Main$unzipBenchmark(n)
 			]));
 }();
 var $author$project$Main$main = $elm_explorations$benchmark$Benchmark$Runner$program($author$project$Main$suite);
