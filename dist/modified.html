@@ -14785,6 +14785,7 @@ var $elm_explorations$benchmark$Benchmark$Runner$program = function (benchmark) 
 			view: $elm_explorations$benchmark$Benchmark$Runner$App$view
 		});
 };
+var $elm_explorations$benchmark$Benchmark$describe = $elm_explorations$benchmark$Benchmark$Benchmark$Group;
 var $elm_explorations$benchmark$Benchmark$Status$Cold = {$: 'Cold'};
 var $elm_explorations$benchmark$Benchmark$LowLevel$operation = function (fn) {
 	return _Benchmark_operation(fn);
@@ -14806,52 +14807,56 @@ var $elm_explorations$benchmark$Benchmark$compare = F5(
 					$elm_explorations$benchmark$Benchmark$Status$Cold)
 				]));
 	});
-var $author$project$Main$coreMap = F2(
+var $author$project$Main$coreFilter = F2(
 	function (f, xs) {
-		return A2($elm$core$List$map, f, xs);
+		return A2($elm$core$List$filter, f, xs);
 	});
 var $author$project$Main$listOfSize = function (n) {
 	return A2($elm$core$List$range, 1, n);
 };
-// https://en.wikipedia.org/wiki/Tail_call#Tail_recursion_modulo_cons
-var $author$project$Main$moduloConsMap = F2(function(f, xs) {
+var $elm$core$Debug$log = _Debug_log;
+
+var $author$project$Main$moduloConsFilter = F2(function (f, xs) {
   var tmp = _List_Cons(undefined, _List_Nil);
   var end = tmp;
   while (xs.b) {
-    end.b = _List_Cons(f(xs.a), _List_Nil);
+    if (f(xs.a)) {
+      end.b = _List_Cons(xs.a, _List_Nil);
+      end = end.b;  
+    }
     xs = xs.b;
-    end = end.b;
   }
   return tmp.b;
 });
-
-var $author$project$Main$compareBenchmark = function (n) {
+var $author$project$Main$filterBenchmark = function (n) {
 	var list = $author$project$Main$listOfSize(n);
+	var f = function (x) {
+		return !(x % 2);
+	};
+	var _v0 = A2(
+		$elm$core$Debug$log,
+		'filter is correct',
+		_Utils_eq(
+			A2($author$project$Main$moduloConsFilter, f, list),
+			A2($author$project$Main$coreFilter, f, list)));
 	return A5(
 		$elm_explorations$benchmark$Benchmark$compare,
 		'list of ' + ($elm$core$String$fromInt(n) + ' integers'),
-		'modulo-cons',
-		function (_v0) {
-			return A2(
-				$author$project$Main$moduloConsMap,
-				$elm$core$Basics$add(5),
-				list);
-		},
-		'core',
+		'filter modulo-cons',
 		function (_v1) {
-			return A2(
-				$author$project$Main$coreMap,
-				$elm$core$Basics$add(5),
-				list);
+			return A2($author$project$Main$moduloConsFilter, f, list);
+		},
+		'filter core',
+		function (_v2) {
+			return A2($author$project$Main$coreFilter, f, list);
 		});
 };
-var $elm_explorations$benchmark$Benchmark$describe = $elm_explorations$benchmark$Benchmark$Benchmark$Group;
 var $author$project$Main$suite = A2(
 	$elm_explorations$benchmark$Benchmark$describe,
-	'map modulo-cons vs core',
+	'modulo-cons vs core',
 	_List_fromArray(
 		[
-			$author$project$Main$compareBenchmark(10)
+			$author$project$Main$filterBenchmark(1000)
 		]));
 var $author$project$Main$main = $elm_explorations$benchmark$Benchmark$Runner$program($author$project$Main$suite);
 _Platform_export({'Main':{'init':$author$project$Main$main(
