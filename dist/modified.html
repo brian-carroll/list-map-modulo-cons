@@ -14785,6 +14785,7 @@ var $elm_explorations$benchmark$Benchmark$Runner$program = function (benchmark) 
 			view: $elm_explorations$benchmark$Benchmark$Runner$App$view
 		});
 };
+var $author$project$Main$append = $elm$core$List$append;
 var $elm_explorations$benchmark$Benchmark$Status$Cold = {$: 'Cold'};
 var $elm_explorations$benchmark$Benchmark$LowLevel$operation = function (fn) {
 	return _Benchmark_operation(fn);
@@ -14810,28 +14811,27 @@ var $author$project$Main$listOfSize = function (n) {
 	return A2($elm$core$List$range, 1, n);
 };
 var $elm$core$Debug$log = _Debug_log;
-var $author$project$Main$moduloConsAppend = $elm$core$List$append;
 var $author$project$Main$appendBenchmark = function (n) {
 	var list = $author$project$Main$listOfSize(n);
 	var _v0 = A2(
 		$elm$core$Debug$log,
 		'append is correct',
 		_Utils_eq(
-			A2($author$project$Main$moduloConsAppend, list, list),
+			A2($author$project$Main$append, list, list),
 			A2($elm$core$List$append, list, list)));
 	return A5(
 		$elm_explorations$benchmark$Benchmark$compare,
 		'list of ' + ($elm$core$String$fromInt(n) + ' integers'),
 		'append modulo-cons',
 		function (_v1) {
-			return A2($author$project$Main$moduloConsAppend, list, list);
+			return A2($author$project$Main$append, list, list);
 		},
 		'append core',
 		function (_v2) {
 			return A2($elm$core$List$append, list, list);
 		});
 };
-var $author$project$Main$moduloConsConcat = $elm$core$List$concat;
+var $author$project$Main$concat = $elm$core$List$concat;
 var $author$project$Main$concatBenchmark = function (n) {
 	var list1 = $author$project$Main$listOfSize(n);
 	var list2 = A2(
@@ -14842,7 +14842,7 @@ var $author$project$Main$concatBenchmark = function (n) {
 		$elm$core$Debug$log,
 		'concat is correct',
 		_Utils_eq(
-			$author$project$Main$moduloConsConcat(
+			$author$project$Main$concat(
 				_List_fromArray(
 					[list1, list2])),
 			$elm$core$List$concat(
@@ -14853,7 +14853,7 @@ var $author$project$Main$concatBenchmark = function (n) {
 		'list of ' + ($elm$core$String$fromInt(n) + ' integers'),
 		'concat modulo-cons',
 		function (_v1) {
-			return $author$project$Main$moduloConsConcat(
+			return $author$project$Main$concat(
 				_List_fromArray(
 					[list1, list2]));
 		},
@@ -14865,7 +14865,7 @@ var $author$project$Main$concatBenchmark = function (n) {
 		});
 };
 var $elm_explorations$benchmark$Benchmark$describe = $elm_explorations$benchmark$Benchmark$Benchmark$Group;
-var $author$project$Main$moduloConsFilter = $elm$core$List$filter;
+var $author$project$Main$filter = $elm$core$List$filter;
 var $author$project$Main$filterBenchmark = function (n) {
 	var list = $author$project$Main$listOfSize(n);
 	var f = function (x) {
@@ -14875,21 +14875,21 @@ var $author$project$Main$filterBenchmark = function (n) {
 		$elm$core$Debug$log,
 		'filter is correct',
 		_Utils_eq(
-			A2($author$project$Main$moduloConsFilter, f, list),
+			A2($author$project$Main$filter, f, list),
 			A2($elm$core$List$filter, f, list)));
 	return A5(
 		$elm_explorations$benchmark$Benchmark$compare,
 		'list of ' + ($elm$core$String$fromInt(n) + ' integers'),
 		'filter modulo-cons',
 		function (_v1) {
-			return A2($author$project$Main$moduloConsFilter, f, list);
+			return A2($author$project$Main$filter, f, list);
 		},
 		'filter core',
 		function (_v2) {
 			return A2($elm$core$List$filter, f, list);
 		});
 };
-var $author$project$Main$moduloConsIndexedMap = $elm$core$List$indexedMap;
+var $author$project$Main$indexedMap = $elm$core$List$indexedMap;
 var $author$project$Main$indexedMapBenchmark = function (n) {
 	var list = $author$project$Main$listOfSize(n);
 	var f = $elm$core$Basics$add;
@@ -14897,14 +14897,14 @@ var $author$project$Main$indexedMapBenchmark = function (n) {
 		$elm$core$Debug$log,
 		'indexedMap is correct',
 		_Utils_eq(
-			A2($author$project$Main$moduloConsIndexedMap, f, list),
+			A2($author$project$Main$indexedMap, f, list),
 			A2($elm$core$List$indexedMap, f, list)));
 	return A5(
 		$elm_explorations$benchmark$Benchmark$compare,
 		'list of ' + ($elm$core$String$fromInt(n) + ' integers'),
 		'indexedMap modulo-cons',
 		function (_v1) {
-			return A2($author$project$Main$moduloConsIndexedMap, f, list);
+			return A2($author$project$Main$indexedMap, f, list);
 		},
 		'indexedMap core',
 		function (_v2) {
@@ -14929,7 +14929,7 @@ var $elm$core$List$intersperse = F2(
 			return A2($elm$core$List$cons, hd, spersed);
 		}
 	});
-var $author$project$Main$moduloConsIntersperse = $elm$core$List$intersperse;
+var $author$project$Main$intersperse = $elm$core$List$intersperse;
 var $author$project$Main$intersperseBenchmark = function (n) {
 	var sep = -1;
 	var list = $author$project$Main$listOfSize(n);
@@ -14937,21 +14937,21 @@ var $author$project$Main$intersperseBenchmark = function (n) {
 		$elm$core$Debug$log,
 		'intersperse is correct',
 		_Utils_eq(
-			A2($author$project$Main$moduloConsIntersperse, sep, list),
+			A2($author$project$Main$intersperse, sep, list),
 			A2($elm$core$List$intersperse, sep, list)));
 	return A5(
 		$elm_explorations$benchmark$Benchmark$compare,
 		'list of ' + ($elm$core$String$fromInt(n) + ' integers'),
 		'intersperse modulo-cons',
 		function (_v1) {
-			return A2($author$project$Main$moduloConsIntersperse, sep, list);
+			return A2($author$project$Main$intersperse, sep, list);
 		},
 		'intersperse core',
 		function (_v2) {
 			return A2($elm$core$List$intersperse, sep, list);
 		});
 };
-var $author$project$Main$moduloConsMap2 = $elm$core$List$map2;
+var $author$project$Main$map2 = $elm$core$List$map2;
 var $author$project$Main$map2Benchmark = function (n) {
 	var list = $author$project$Main$listOfSize(n);
 	var f = F2(
@@ -14962,21 +14962,21 @@ var $author$project$Main$map2Benchmark = function (n) {
 		$elm$core$Debug$log,
 		'map2 is correct',
 		_Utils_eq(
-			A3($author$project$Main$moduloConsMap2, f, list, list),
+			A3($author$project$Main$map2, f, list, list),
 			A3($elm$core$List$map2, f, list, list)));
 	return A5(
 		$elm_explorations$benchmark$Benchmark$compare,
 		'list of ' + ($elm$core$String$fromInt(n) + ' integers'),
 		'map2 modulo-cons',
 		function (_v1) {
-			return A2($author$project$Main$moduloConsMap2, f, list);
+			return A2($author$project$Main$map2, f, list);
 		},
 		'map2 core',
 		function (_v2) {
 			return A2($elm$core$List$map2, f, list);
 		});
 };
-var $author$project$Main$moduloConsMap = F2(
+var $author$project$Main$map = F2(
 	function (f, xs) {
 		return A2($elm$core$List$map, f, xs);
 	});
@@ -14987,21 +14987,21 @@ var $author$project$Main$mapBenchmark = function (n) {
 		$elm$core$Debug$log,
 		'map is correct',
 		_Utils_eq(
-			A2($author$project$Main$moduloConsMap, f, list),
+			A2($author$project$Main$map, f, list),
 			A2($elm$core$List$map, f, list)));
 	return A5(
 		$elm_explorations$benchmark$Benchmark$compare,
 		'list of ' + ($elm$core$String$fromInt(n) + ' integers'),
 		'map modulo-cons',
 		function (_v1) {
-			return A2($author$project$Main$moduloConsMap, f, list);
+			return A2($author$project$Main$map, f, list);
 		},
 		'map core',
 		function (_v2) {
 			return A2($elm$core$List$map, f, list);
 		});
 };
-var $author$project$Main$moduloConsPartition = $elm$core$List$partition;
+var $author$project$Main$partition = $elm$core$List$partition;
 var $author$project$Main$partitionBenchmark = function (n) {
 	var list = $author$project$Main$listOfSize(n);
 	var f = function (x) {
@@ -15011,21 +15011,21 @@ var $author$project$Main$partitionBenchmark = function (n) {
 		$elm$core$Debug$log,
 		'partition is correct',
 		_Utils_eq(
-			A2($author$project$Main$moduloConsPartition, f, list),
+			A2($author$project$Main$partition, f, list),
 			A2($elm$core$List$partition, f, list)));
 	return A5(
 		$elm_explorations$benchmark$Benchmark$compare,
 		'list of ' + ($elm$core$String$fromInt(n) + ' integers'),
 		'partition modulo-cons',
 		function (_v1) {
-			return A2($author$project$Main$moduloConsPartition, f, list);
+			return A2($author$project$Main$partition, f, list);
 		},
 		'partition core',
 		function (_v2) {
 			return A2($elm$core$List$partition, f, list);
 		});
 };
-var $author$project$Main$moduloConsUnzip = $elm$core$List$unzip;
+var $author$project$Main$unzip = $elm$core$List$unzip;
 var $author$project$Main$unzipBenchmark = function (n) {
 	var list = A2(
 		$elm$core$List$map,
@@ -15037,14 +15037,14 @@ var $author$project$Main$unzipBenchmark = function (n) {
 		$elm$core$Debug$log,
 		'unzip is correct',
 		_Utils_eq(
-			$author$project$Main$moduloConsUnzip(list),
+			$author$project$Main$unzip(list),
 			$elm$core$List$unzip(list)));
 	return A5(
 		$elm_explorations$benchmark$Benchmark$compare,
 		'list of ' + ($elm$core$String$fromInt(n) + ' integers'),
 		'unzip modulo-cons',
 		function (_v1) {
-			return $author$project$Main$moduloConsUnzip(list);
+			return $author$project$Main$unzip(list);
 		},
 		'unzip core',
 		function (_v2) {
@@ -15071,7 +15071,7 @@ var $author$project$Main$suite = function () {
 }();
 
 // https://en.wikipedia.org/wiki/Tail_call#Tail_recursion_modulo_cons
-var $author$project$Main$moduloConsMap = F2(function (f, xs) {
+var $author$project$Main$map = F2(function (f, xs) {
   var tmp = _List_Cons(undefined, _List_Nil);
   var end = tmp;
   while (xs.b) {
@@ -15084,7 +15084,7 @@ var $author$project$Main$moduloConsMap = F2(function (f, xs) {
 });
 
 // slower than core
-var $author$project$Main$moduloConsMap2 = F3(function (f, xs, ys) {
+var $author$project$Main$map2 = F3(function (f, xs, ys) {
   var tmp = _List_Cons(undefined, _List_Nil);
   var end = tmp;
   while (xs.b && ys.b) {
@@ -15097,7 +15097,7 @@ var $author$project$Main$moduloConsMap2 = F3(function (f, xs, ys) {
   return tmp.b;
 });
 
-var $author$project$Main$moduloConsIndexedMap = F2(function (f, xs) {
+var $author$project$Main$indexedMap = F2(function (f, xs) {
   var tmp = _List_Cons(undefined, _List_Nil);
   var end = tmp;
   for (var i = 0; xs.b; i++) {
@@ -15109,7 +15109,7 @@ var $author$project$Main$moduloConsIndexedMap = F2(function (f, xs) {
   return tmp.b;
 });
 
-var $author$project$Main$moduloConsFilter = F2(function (f, xs) {
+var $author$project$Main$filter = F2(function (f, xs) {
   var tmp = _List_Cons(undefined, _List_Nil);
   var end = tmp;
   while (xs.b) {
@@ -15123,7 +15123,7 @@ var $author$project$Main$moduloConsFilter = F2(function (f, xs) {
   return tmp.b;
 });
 
-var $author$project$Main$moduloConsAppend = F2(function (xs, ys) {
+var $author$project$Main$append = F2(function (xs, ys) {
   var tmp = _List_Cons(undefined, _List_Nil);
   var end = tmp;
   while (xs.b) {
@@ -15137,7 +15137,7 @@ var $author$project$Main$moduloConsAppend = F2(function (xs, ys) {
   return tmp.b;
 });
 
-var $author$project$Main$moduloConsConcat = function (lists) {
+var $author$project$Main$concat = function (lists) {
   var tmp = _List_Cons(undefined, _List_Nil);
   var end = tmp;
   if (!lists.b) {
@@ -15157,7 +15157,7 @@ var $author$project$Main$moduloConsConcat = function (lists) {
   return tmp.b;
 };
 
-var $author$project$Main$moduloConsIntersperse = F2(function (sep, xs) {
+var $author$project$Main$intersperse = F2(function (sep, xs) {
   if (!xs.b) {
     return xs;
   }
@@ -15179,7 +15179,7 @@ var $author$project$Main$moduloConsIntersperse = F2(function (sep, xs) {
   return tmp.b;
 });
 
-var $author$project$Main$moduloConsPartition = F2(function (f, xs) {
+var $author$project$Main$partition = F2(function (f, xs) {
   var truesHead = _List_Cons(undefined, _List_Nil);
   var falsesHead = _List_Cons(undefined, _List_Nil);
   var truesEnd = truesHead;
@@ -15198,7 +15198,7 @@ var $author$project$Main$moduloConsPartition = F2(function (f, xs) {
   return _Utils_Tuple2(truesHead.b, falsesHead.b);
 });
 
-var $author$project$Main$moduloConsUnzip = function (pairs) {
+var $author$project$Main$unzip = function (pairs) {
   var aHead = _List_Cons(undefined, _List_Nil);
   var bHead = _List_Cons(undefined, _List_Nil);
   var aEnd = aHead;

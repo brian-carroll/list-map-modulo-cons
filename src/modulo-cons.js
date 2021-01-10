@@ -1,5 +1,5 @@
 // https://en.wikipedia.org/wiki/Tail_call#Tail_recursion_modulo_cons
-var $author$project$Main$moduloConsMap = F2(function (f, xs) {
+var $author$project$Main$map = F2(function (f, xs) {
   var tmp = _List_Cons(undefined, _List_Nil);
   var end = tmp;
   while (xs.b) {
@@ -12,7 +12,7 @@ var $author$project$Main$moduloConsMap = F2(function (f, xs) {
 });
 
 // slower than core
-var $author$project$Main$moduloConsMap2 = F3(function (f, xs, ys) {
+var $author$project$Main$map2 = F3(function (f, xs, ys) {
   var tmp = _List_Cons(undefined, _List_Nil);
   var end = tmp;
   while (xs.b && ys.b) {
@@ -25,7 +25,7 @@ var $author$project$Main$moduloConsMap2 = F3(function (f, xs, ys) {
   return tmp.b;
 });
 
-var $author$project$Main$moduloConsIndexedMap = F2(function (f, xs) {
+var $author$project$Main$indexedMap = F2(function (f, xs) {
   var tmp = _List_Cons(undefined, _List_Nil);
   var end = tmp;
   for (var i = 0; xs.b; i++) {
@@ -37,7 +37,7 @@ var $author$project$Main$moduloConsIndexedMap = F2(function (f, xs) {
   return tmp.b;
 });
 
-var $author$project$Main$moduloConsFilter = F2(function (f, xs) {
+var $author$project$Main$filter = F2(function (f, xs) {
   var tmp = _List_Cons(undefined, _List_Nil);
   var end = tmp;
   while (xs.b) {
@@ -51,7 +51,7 @@ var $author$project$Main$moduloConsFilter = F2(function (f, xs) {
   return tmp.b;
 });
 
-var $author$project$Main$moduloConsAppend = F2(function (xs, ys) {
+var $author$project$Main$append = F2(function (xs, ys) {
   var tmp = _List_Cons(undefined, _List_Nil);
   var end = tmp;
   while (xs.b) {
@@ -65,7 +65,7 @@ var $author$project$Main$moduloConsAppend = F2(function (xs, ys) {
   return tmp.b;
 });
 
-var $author$project$Main$moduloConsConcat = function (lists) {
+var $author$project$Main$concat = function (lists) {
   var tmp = _List_Cons(undefined, _List_Nil);
   var end = tmp;
   if (!lists.b) {
@@ -85,7 +85,7 @@ var $author$project$Main$moduloConsConcat = function (lists) {
   return tmp.b;
 };
 
-var $author$project$Main$moduloConsIntersperse = F2(function (sep, xs) {
+var $author$project$Main$intersperse = F2(function (sep, xs) {
   if (!xs.b) {
     return xs;
   }
@@ -107,7 +107,7 @@ var $author$project$Main$moduloConsIntersperse = F2(function (sep, xs) {
   return tmp.b;
 });
 
-var $author$project$Main$moduloConsPartition = F2(function (f, xs) {
+var $author$project$Main$partition = F2(function (f, xs) {
   var truesHead = _List_Cons(undefined, _List_Nil);
   var falsesHead = _List_Cons(undefined, _List_Nil);
   var truesEnd = truesHead;
@@ -126,7 +126,7 @@ var $author$project$Main$moduloConsPartition = F2(function (f, xs) {
   return _Utils_Tuple2(truesHead.b, falsesHead.b);
 });
 
-var $author$project$Main$moduloConsUnzip = function (pairs) {
+var $author$project$Main$unzip = function (pairs) {
   var aHead = _List_Cons(undefined, _List_Nil);
   var bHead = _List_Cons(undefined, _List_Nil);
   var aEnd = aHead;

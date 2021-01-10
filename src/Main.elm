@@ -11,48 +11,40 @@ main =
     Benchmark.Runner.program suite
 
 
-moduloConsMap : (a -> b) -> List a -> List b
-moduloConsMap f xs =
-    -- Just a dummy Elm placeholder!
-    -- After compiling, copy compiled.html to modified.html and edit it.
-    -- Find the JS definition for `var $author$project$Main$moduloConsMap`
-    -- and replace it with the code in modulo-cons-map.js
-    -- Save modified.html and open it in a browser
+map : (a -> b) -> List a -> List b
+map f xs =
     List.map f xs
 
 
-moduloConsMap2 =
-    -- Just a dummy Elm placeholder!
+map2 =
     List.map2
 
 
-moduloConsIndexedMap =
-    -- Just a dummy Elm placeholder!
+indexedMap =
     List.indexedMap
 
 
-moduloConsFilter =
-    -- Just a dummy Elm placeholder!
+filter =
     List.filter
 
 
-moduloConsAppend =
+append =
     List.append
 
 
-moduloConsConcat =
+concat =
     List.concat
 
 
-moduloConsIntersperse =
+intersperse =
     List.intersperse
 
 
-moduloConsPartition =
+partition =
     List.partition
 
 
-moduloConsUnzip =
+unzip =
     List.unzip
 
 
@@ -71,11 +63,11 @@ mapBenchmark n =
             (+) 5
 
         _ =
-            Debug.log "map is correct" (moduloConsMap f list == List.map f list)
+            Debug.log "map is correct" (map f list == List.map f list)
     in
     Benchmark.compare ("list of " ++ String.fromInt n ++ " integers")
         "map modulo-cons"
-        (\_ -> moduloConsMap f list)
+        (\_ -> map f list)
         "map core"
         (\_ -> List.map f list)
 
@@ -91,11 +83,11 @@ map2Benchmark n =
 
         _ =
             Debug.log "map2 is correct"
-                (moduloConsMap2 f list list == List.map2 f list list)
+                (map2 f list list == List.map2 f list list)
     in
     Benchmark.compare ("list of " ++ String.fromInt n ++ " integers")
         "map2 modulo-cons"
-        (\_ -> moduloConsMap2 f list)
+        (\_ -> map2 f list)
         "map2 core"
         (\_ -> List.map2 f list)
 
@@ -111,11 +103,11 @@ indexedMapBenchmark n =
 
         _ =
             Debug.log "indexedMap is correct"
-                (moduloConsIndexedMap f list == List.indexedMap f list)
+                (indexedMap f list == List.indexedMap f list)
     in
     Benchmark.compare ("list of " ++ String.fromInt n ++ " integers")
         "indexedMap modulo-cons"
-        (\_ -> moduloConsIndexedMap f list)
+        (\_ -> indexedMap f list)
         "indexedMap core"
         (\_ -> List.indexedMap f list)
 
@@ -130,11 +122,11 @@ filterBenchmark n =
             remainderBy 2 x == 0
 
         _ =
-            Debug.log "filter is correct" (moduloConsFilter f list == List.filter f list)
+            Debug.log "filter is correct" (filter f list == List.filter f list)
     in
     Benchmark.compare ("list of " ++ String.fromInt n ++ " integers")
         "filter modulo-cons"
-        (\_ -> moduloConsFilter f list)
+        (\_ -> filter f list)
         "filter core"
         (\_ -> List.filter f list)
 
@@ -147,11 +139,11 @@ appendBenchmark n =
 
         _ =
             Debug.log "append is correct"
-                (moduloConsAppend list list == List.append list list)
+                (append list list == List.append list list)
     in
     Benchmark.compare ("list of " ++ String.fromInt n ++ " integers")
         "append modulo-cons"
-        (\_ -> moduloConsAppend list list)
+        (\_ -> append list list)
         "append core"
         (\_ -> List.append list list)
 
@@ -167,11 +159,11 @@ concatBenchmark n =
 
         _ =
             Debug.log "concat is correct"
-                (moduloConsConcat [ list1, list2 ] == List.concat [ list1, list2 ])
+                (concat [ list1, list2 ] == List.concat [ list1, list2 ])
     in
     Benchmark.compare ("list of " ++ String.fromInt n ++ " integers")
         "concat modulo-cons"
-        (\_ -> moduloConsConcat [ list1, list2 ])
+        (\_ -> concat [ list1, list2 ])
         "concat core"
         (\_ -> List.concat [ list1, list2 ])
 
@@ -187,11 +179,11 @@ intersperseBenchmark n =
 
         _ =
             Debug.log "intersperse is correct"
-                (moduloConsIntersperse sep list == List.intersperse sep list)
+                (intersperse sep list == List.intersperse sep list)
     in
     Benchmark.compare ("list of " ++ String.fromInt n ++ " integers")
         "intersperse modulo-cons"
-        (\_ -> moduloConsIntersperse sep list)
+        (\_ -> intersperse sep list)
         "intersperse core"
         (\_ -> List.intersperse sep list)
 
@@ -207,11 +199,11 @@ partitionBenchmark n =
 
         _ =
             Debug.log "partition is correct"
-                (moduloConsPartition f list == List.partition f list)
+                (partition f list == List.partition f list)
     in
     Benchmark.compare ("list of " ++ String.fromInt n ++ " integers")
         "partition modulo-cons"
-        (\_ -> moduloConsPartition f list)
+        (\_ -> partition f list)
         "partition core"
         (\_ -> List.partition f list)
 
@@ -225,11 +217,11 @@ unzipBenchmark n =
 
         _ =
             Debug.log "unzip is correct"
-                (moduloConsUnzip list == List.unzip list)
+                (unzip list == List.unzip list)
     in
     Benchmark.compare ("list of " ++ String.fromInt n ++ " integers")
         "unzip modulo-cons"
-        (\_ -> moduloConsUnzip list)
+        (\_ -> unzip list)
         "unzip core"
         (\_ -> List.unzip list)
 
