@@ -39,6 +39,10 @@ moduloConsAppend =
     List.append
 
 
+moduloConsConcat =
+    List.concat
+
+
 listOfSize : Int -> List Int
 listOfSize n =
     List.range 1 n
@@ -139,6 +143,26 @@ appendBenchmark n =
         (\_ -> List.append list list)
 
 
+concatBenchmark : Int -> Benchmark
+concatBenchmark n =
+    let
+        list1 =
+            listOfSize n
+
+        list2 =
+            List.map ((+) n) list1
+
+        _ =
+            Debug.log "concat is correct"
+                (moduloConsConcat [ list1, list2 ] == List.concat [ list1, list2 ])
+    in
+    Benchmark.compare ("list of " ++ String.fromInt n ++ " integers")
+        "concat modulo-cons"
+        (\_ -> moduloConsConcat [ list1, list2 ])
+        "concat core"
+        (\_ -> List.concat [ list1, list2 ])
+
+
 suite : Benchmark
 suite =
     let
@@ -146,10 +170,13 @@ suite =
             1000
     in
     describe "modulo-cons vs core"
-        -- [ appendBenchmark n ]
-        [ mapBenchmark n
-        , map2Benchmark n
-        , indexedMapBenchmark n
-        , filterBenchmark n
-        , appendBenchmark n
-        ]
+        [ concatBenchmark n ]
+
+
+
+-- [ mapBenchmark n
+-- , map2Benchmark n
+-- , indexedMapBenchmark n
+-- , filterBenchmark n
+-- , appendBenchmark n
+-- ]

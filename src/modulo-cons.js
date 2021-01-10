@@ -61,3 +61,25 @@ var $author$project$Main$moduloConsAppend = F2(function (xs, ys) {
 
   return tmp.b;
 });
+
+var $author$project$Main$moduloConsConcat = function (lists) {
+  var tmp = _List_Cons(undefined, _List_Nil);
+  var end = tmp;
+  if (!lists.b) {
+    return _List_Nil;
+  }
+  if (!lists.b.b) {
+    return lists.a;
+  }
+  for (; lists.b.b; lists = lists.b) {
+    var xs = lists.a;
+    while (xs.b) {
+      end.b = _List_Cons(xs.a, _List_Nil);
+      end = end.b;
+      xs = xs.b;
+    }
+  }
+  end.b = lists;
+
+  return tmp.b;
+};
