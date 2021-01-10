@@ -2,11 +2,10 @@
 var $author$project$Main$map = F2(function (f, xs) {
   var tmp = _List_Cons(undefined, _List_Nil);
   var end = tmp;
-  while (xs.b) {
+  for (; xs.b; xs = xs.b) {
     var next = _List_Cons(f(xs.a), _List_Nil);
     end.b = next;
     end = next;
-    xs = xs.b;
   }
   return tmp.b;
 });
@@ -15,12 +14,10 @@ var $author$project$Main$map = F2(function (f, xs) {
 var $author$project$Main$map2 = F3(function (f, xs, ys) {
   var tmp = _List_Cons(undefined, _List_Nil);
   var end = tmp;
-  while (xs.b && ys.b) {
+  for (; xs.b && ys.b; xs = xs.b, ys = ys.b) {
     var next = _List_Cons(A2(f, xs.a, ys.a), _List_Nil);
     end.b = next;
     end = next;
-    xs = xs.b;
-    ys = ys.b;
   }
   return tmp.b;
 });
@@ -28,11 +25,10 @@ var $author$project$Main$map2 = F3(function (f, xs, ys) {
 var $author$project$Main$indexedMap = F2(function (f, xs) {
   var tmp = _List_Cons(undefined, _List_Nil);
   var end = tmp;
-  for (var i = 0; xs.b; i++) {
+  for (var i = 0; xs.b; i++, xs = xs.b) {
     var next = _List_Cons(A2(f, i, xs.a), _List_Nil);
     end.b = next;
     end = next;
-    xs = xs.b;
   }
   return tmp.b;
 });
@@ -40,13 +36,12 @@ var $author$project$Main$indexedMap = F2(function (f, xs) {
 var $author$project$Main$filter = F2(function (f, xs) {
   var tmp = _List_Cons(undefined, _List_Nil);
   var end = tmp;
-  while (xs.b) {
+  for (; xs.b; xs = xs.b) {
     if (f(xs.a)) {
       var next = _List_Cons(xs.a, _List_Nil);
       end.b = next;
       end = next;
     }
-    xs = xs.b;
   }
   return tmp.b;
 });
@@ -54,11 +49,10 @@ var $author$project$Main$filter = F2(function (f, xs) {
 var $author$project$Main$append = F2(function (xs, ys) {
   var tmp = _List_Cons(undefined, _List_Nil);
   var end = tmp;
-  while (xs.b) {
+  for (; xs.b; xs = xs.b) {
     var next = _List_Cons(xs.a, _List_Nil);
     end.b = next;
     end = next;
-    xs = xs.b;
   }
   end.b = ys;
 
@@ -73,11 +67,10 @@ var $author$project$Main$concat = function (lists) {
   }
   for (; lists.b.b; lists = lists.b) {
     var xs = lists.a;
-    while (xs.b) {
+    for (; xs.b; xs = xs.b) {
       var next = _List_Cons(xs.a, _List_Nil);
       end.b = next;
       end = next;
-      xs = xs.b;
     }
   }
   end.b = lists;
@@ -96,12 +89,11 @@ var $author$project$Main$intersperse = F2(function (sep, xs) {
   end = end.b;
   xs = xs.b;
 
-  while (xs.b) {
+  for (; xs.b; xs = xs.b) {
     var valNode = _List_Cons(xs.a, _List_Nil);
     var sepNode = _List_Cons(sep, valNode);
     end.b = sepNode;
     end = valNode;
-    xs = xs.b;
   }
 
   return tmp.b;
@@ -112,7 +104,7 @@ var $author$project$Main$partition = F2(function (f, xs) {
   var falsesHead = _List_Cons(undefined, _List_Nil);
   var truesEnd = truesHead;
   var falsesEnd = falsesHead;
-  while (xs.b) {
+  for (; xs.b; xs = xs.b) {
     var next = _List_Cons(xs.a, _List_Nil);
     if (f(xs.a)) {
       truesEnd.b = next;
@@ -121,7 +113,6 @@ var $author$project$Main$partition = F2(function (f, xs) {
       falsesEnd.b = next;
       falsesEnd = next;
     }
-    xs = xs.b;
   }
   return _Utils_Tuple2(truesHead.b, falsesHead.b);
 });
@@ -131,7 +122,7 @@ var $author$project$Main$unzip = function (pairs) {
   var bHead = _List_Cons(undefined, _List_Nil);
   var aEnd = aHead;
   var bEnd = bHead;
-  while (pairs.b) {
+  for (; pairs.b; pairs = pairs.b) {
     var tuple = pairs.a;
 
     var aNext = _List_Cons(tuple.a, _List_Nil);
@@ -141,8 +132,6 @@ var $author$project$Main$unzip = function (pairs) {
     var bNext = _List_Cons(tuple.b, _List_Nil);
     bEnd.b = bNext;
     bEnd = bNext;
-
-    pairs = pairs.b;
   }
   return _Utils_Tuple2(aHead.b, bHead.b);
 };
