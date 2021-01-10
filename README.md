@@ -51,3 +51,7 @@ var $author$project$Main$moduloConsMap
 Replace it with the code in src/modulo-cons-map.js
 
 Load modified.html in a browser
+
+## Other List functions
+
+![Benchmark results for several functions](./docs/benchmarks.png)
