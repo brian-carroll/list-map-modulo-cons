@@ -10,11 +10,6 @@ main =
     Benchmark.Runner.program suite
 
 
-coreMap : (a -> b) -> List a -> List b
-coreMap f xs =
-    List.map f xs
-
-
 moduloConsMap : (a -> b) -> List a -> List b
 moduloConsMap f xs =
     -- Just a dummy Elm placeholder!
@@ -25,19 +20,19 @@ moduloConsMap f xs =
     List.map f xs
 
 
-coreFilter : (a -> Bool) -> List a -> List a
-coreFilter f xs =
-    List.filter f xs
-
-
-moduloConsFilter : (a -> Bool) -> List a -> List a
-moduloConsFilter f xs =
+moduloConsMap2 =
     -- Just a dummy Elm placeholder!
-    -- After compiling, copy compiled.html to modified.html and edit it.
-    -- Find the JS definition for `var $author$project$Main$moduloConsMap`
-    -- and replace it with the code in modulo-cons-map.js
-    -- Save modified.html and open it in a browser
-    List.filter f xs
+    List.map2
+
+
+moduloConsIndexedMap =
+    -- Just a dummy Elm placeholder!
+    List.indexedMap
+
+
+moduloConsFilter =
+    -- Just a dummy Elm placeholder!
+    List.filter
 
 
 listOfSize : Int -> List Int
@@ -55,20 +50,53 @@ mapBenchmark n =
             (+) 5
 
         _ =
-            Debug.log "map is correct" (moduloConsMap f list == coreMap f list)
+            Debug.log "map is correct" (moduloConsMap f list == List.map f list)
     in
     Benchmark.compare ("list of " ++ String.fromInt n ++ " integers")
         "map modulo-cons"
         (\_ -> moduloConsMap f list)
         "map core"
-        (\_ -> coreMap f list)
+        (\_ -> List.map f list)
 
 
-mapScale : List Benchmark
-mapScale =
-    List.range 1 4
-        |> List.map ((^) 10)
-        |> List.map mapBenchmark
+map2Benchmark : Int -> Benchmark
+map2Benchmark n =
+    let
+        list =
+            listOfSize n
+
+        f x y =
+            x + y
+
+        _ =
+            Debug.log "map2 is correct"
+                (moduloConsMap2 f list list == List.map2 f list list)
+    in
+    Benchmark.compare ("list of " ++ String.fromInt n ++ " integers")
+        "map2 modulo-cons"
+        (\_ -> moduloConsMap2 f list)
+        "map2 core"
+        (\_ -> List.map2 f list)
+
+
+indexedMapBenchmark : Int -> Benchmark
+indexedMapBenchmark n =
+    let
+        list =
+            listOfSize n
+
+        f =
+            (+)
+
+        _ =
+            Debug.log "indexedMap is correct"
+                (moduloConsIndexedMap f list == List.indexedMap f list)
+    in
+    Benchmark.compare ("list of " ++ String.fromInt n ++ " integers")
+        "indexedMap modulo-cons"
+        (\_ -> moduloConsIndexedMap f list)
+        "indexedMap core"
+        (\_ -> List.indexedMap f list)
 
 
 filterBenchmark : Int -> Benchmark
@@ -81,23 +109,28 @@ filterBenchmark n =
             remainderBy 2 x == 0
 
         _ =
-            Debug.log "filter is correct" (moduloConsFilter f list == coreFilter f list)
+            Debug.log "filter is correct" (moduloConsFilter f list == List.filter f list)
     in
     Benchmark.compare ("list of " ++ String.fromInt n ++ " integers")
         "filter modulo-cons"
         (\_ -> moduloConsFilter f list)
         "filter core"
-        (\_ -> coreFilter f list)
-
-
-filterScale : List Benchmark
-filterScale =
-    List.range 1 4
-        |> List.map ((^) 10)
-        |> List.map filterBenchmark
+        (\_ -> List.filter f list)
 
 
 suite : Benchmark
 suite =
+    let
+        n =
+            1000
+    in
     describe "modulo-cons vs core"
-        [ filterBenchmark 1000 ]
+        [ map2Benchmark n ]
+
+
+
+-- [ mapBenchmark n
+-- , map2Benchmark n
+-- , indexedMapBenchmark n
+-- , filterBenchmark n
+-- ]

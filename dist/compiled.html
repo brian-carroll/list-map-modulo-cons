@@ -14807,48 +14807,45 @@ var $elm_explorations$benchmark$Benchmark$compare = F5(
 					$elm_explorations$benchmark$Benchmark$Status$Cold)
 				]));
 	});
-var $author$project$Main$coreFilter = F2(
-	function (f, xs) {
-		return A2($elm$core$List$filter, f, xs);
-	});
 var $author$project$Main$listOfSize = function (n) {
 	return A2($elm$core$List$range, 1, n);
 };
 var $elm$core$Debug$log = _Debug_log;
-var $author$project$Main$moduloConsFilter = F2(
-	function (f, xs) {
-		return A2($elm$core$List$filter, f, xs);
-	});
-var $author$project$Main$filterBenchmark = function (n) {
+var $author$project$Main$moduloConsMap2 = $elm$core$List$map2;
+var $author$project$Main$map2Benchmark = function (n) {
 	var list = $author$project$Main$listOfSize(n);
-	var f = function (x) {
-		return !(x % 2);
-	};
+	var f = F2(
+		function (x, y) {
+			return x + y;
+		});
 	var _v0 = A2(
 		$elm$core$Debug$log,
-		'filter is correct',
+		'map2 is correct',
 		_Utils_eq(
-			A2($author$project$Main$moduloConsFilter, f, list),
-			A2($author$project$Main$coreFilter, f, list)));
+			A3($author$project$Main$moduloConsMap2, f, list, list),
+			A3($elm$core$List$map2, f, list, list)));
 	return A5(
 		$elm_explorations$benchmark$Benchmark$compare,
 		'list of ' + ($elm$core$String$fromInt(n) + ' integers'),
-		'filter modulo-cons',
+		'map2 modulo-cons',
 		function (_v1) {
-			return A2($author$project$Main$moduloConsFilter, f, list);
+			return A2($author$project$Main$moduloConsMap2, f, list);
 		},
-		'filter core',
+		'map2 core',
 		function (_v2) {
-			return A2($author$project$Main$coreFilter, f, list);
+			return A2($elm$core$List$map2, f, list);
 		});
 };
-var $author$project$Main$suite = A2(
-	$elm_explorations$benchmark$Benchmark$describe,
-	'modulo-cons vs core',
-	_List_fromArray(
-		[
-			$author$project$Main$filterBenchmark(1000)
-		]));
+var $author$project$Main$suite = function () {
+	var n = 1000;
+	return A2(
+		$elm_explorations$benchmark$Benchmark$describe,
+		'modulo-cons vs core',
+		_List_fromArray(
+			[
+				$author$project$Main$map2Benchmark(n)
+			]));
+}();
 var $author$project$Main$main = $elm_explorations$benchmark$Benchmark$Runner$program($author$project$Main$suite);
 _Platform_export({'Main':{'init':$author$project$Main$main(
 	$elm$json$Json$Decode$succeed(_Utils_Tuple0))(0)}});}(this));
