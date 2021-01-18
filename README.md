@@ -19,7 +19,7 @@ Recently I was writing a function a bit like `List.map` as part of my project, r
 
 ## Generality
 
-I _think_ the optimisation should work for most of the core List functions that are currently based on `foldr`, which is quite a few of them:
+Rhe optimisation works for all of the core List functions that are currently based on `foldr`, which is quite a few of them:
 
 - `List.map`
 - `List.indexedMap`
@@ -34,24 +34,32 @@ However the `foldr` function itself seems to be too general. This optimisation r
 
 `List.partition` and `List.unzip` each return a tuple of lists rather than a single list, but it should be easy to extend the optimisation to cover that case.
 
-## Running the benchmark
+## Running the benchmarks
 
 Edit with the [Elm Benchmark](https://package.elm-lang.org/packages/elm-explorations/benchmark/latest) code till you're happy with it. Then do this:
 
 ```bash
-elm make src/Main.elm --output dist/compiled.html
-cp dist/compiled.html dist/modified.html
+elm make src/Benchmarks.elm --output dist/benchmarks.html
 ``` 
 
-Now open modified.html in an editor and find this variable definition
+Now open benchmarks.html in an editor and find this variable definition
 ```js
 var $author$project$Main$main = $elm_explorations$benchmark$Benchmark$Runner$program($author$project$Main$suite);
 ```
 
-Just _before_ this line, paste in the the code from src/modulo-cons-map.js
+Just _before_ this line, paste in the the code from src/modulo-cons.js
 
-Load modified.html in a browser
+Load benchmarks.html in a browser
 
 ## Other List functions
 
 ![Benchmark results for several functions](./docs/benchmarks.png)
+
+
+## Running the fuzz tests
+
+I wrote [fuzz tests](./src/HtmlTests.elm) to find and fix bugs.
+
+Since I had to manually edit the JavaScript, it was tricky to get the normal [elm-test](https://www.npmjs.com/package/elm-test) working. It writes the compiled files to a temporary folder and immediately runs them using Node.js. So there's no time to hack the JS.
+
+But luckily I found a library to run Elm tests in the browser, [jgrenat/elm-html-test-runner](https://package.elm-lang.org/packages/jgrenat/elm-html-test-runner/latest/). It's not recommended due to how the files are organised, but that was fine for my case and it allowed me to easily access the JavaScript and hack away.
