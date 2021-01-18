@@ -1,12 +1,12 @@
 module HtmlTests exposing (..)
 
-import Benchmarks
-import Expect exposing (Expectation)
+import Expect
 import Fuzz exposing (Fuzzer)
 import Html exposing (Html, div, h1, text)
+import ModuloCons
 import Random
-import Test exposing (Test, describe, fuzz, test)
-import Test.Runner.Html exposing (defaultConfig, hidePassedTests, showPassedTests, viewResults, withFuzzCount)
+import Test exposing (Test, describe, fuzz)
+import Test.Runner.Html exposing (defaultConfig, showPassedTests, viewResults, withFuzzCount)
 
 
 int : Fuzzer Int
@@ -45,47 +45,47 @@ suite =
         [ fuzz listInt "map" <|
             \list ->
                 Expect.equal
-                    (Benchmarks.map ((+) 5) list)
+                    (ModuloCons.map ((+) 5) list)
                     (List.map ((+) 5) list)
         , fuzz pairOfLists "map2" <|
             \( list1, list2 ) ->
                 Expect.equal
-                    (Benchmarks.map2 (+) list1 list2)
+                    (ModuloCons.map2 (+) list1 list2)
                     (List.map2 (+) list1 list2)
         , fuzz listInt "indexedMap" <|
             \list ->
                 Expect.equal
-                    (Benchmarks.indexedMap (+) list)
+                    (ModuloCons.indexedMap (+) list)
                     (List.indexedMap (+) list)
         , fuzz listInt "filter" <|
             \list ->
                 Expect.equal
-                    (Benchmarks.filter filterFn list)
+                    (ModuloCons.filter filterFn list)
                     (List.filter filterFn list)
         , fuzz pairOfLists "append" <|
             \( list1, list2 ) ->
                 Expect.equal
-                    (Benchmarks.append list1 list2)
+                    (ModuloCons.append list1 list2)
                     (List.append list1 list2)
         , fuzz listListInt "concat" <|
             \lists ->
                 Expect.equal
-                    (Benchmarks.concat lists)
+                    (ModuloCons.concat lists)
                     (List.concat lists)
         , fuzz listInt "intersperse" <|
             \list ->
                 Expect.equal
-                    (Benchmarks.intersperse -1 list)
+                    (ModuloCons.intersperse -1 list)
                     (List.intersperse -1 list)
         , fuzz listInt "partition" <|
             \list ->
                 Expect.equal
-                    (Benchmarks.partition filterFn list)
+                    (ModuloCons.partition filterFn list)
                     (List.partition filterFn list)
         , fuzz listOfPairs "unzip" <|
             \list ->
                 Expect.equal
-                    (Benchmarks.unzip list)
+                    (ModuloCons.unzip list)
                     (List.unzip list)
         ]
 

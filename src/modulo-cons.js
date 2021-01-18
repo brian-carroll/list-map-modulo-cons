@@ -1,5 +1,5 @@
 // https://en.wikipedia.org/wiki/Tail_call#Tail_recursion_modulo_cons
-var $author$project$Benchmarks$map = F2(function (f, xs) {
+var $author$project$ModuloCons$map = F2(function (f, xs) {
   var tmp = _List_Cons(undefined, _List_Nil);
   var end = tmp;
   for (; xs.b; xs = xs.b) {
@@ -11,7 +11,7 @@ var $author$project$Benchmarks$map = F2(function (f, xs) {
 });
 
 // slower than core
-var $author$project$Benchmarks$map2 = F3(function (f, xs, ys) {
+var $author$project$ModuloCons$map2 = F3(function (f, xs, ys) {
   var tmp = _List_Cons(undefined, _List_Nil);
   var end = tmp;
   for (; xs.b && ys.b; xs = xs.b, ys = ys.b) {
@@ -22,7 +22,7 @@ var $author$project$Benchmarks$map2 = F3(function (f, xs, ys) {
   return tmp.b;
 });
 
-var $author$project$Benchmarks$indexedMap = F2(function (f, xs) {
+var $author$project$ModuloCons$indexedMap = F2(function (f, xs) {
   var tmp = _List_Cons(undefined, _List_Nil);
   var end = tmp;
   for (var i = 0; xs.b; i++, xs = xs.b) {
@@ -33,7 +33,7 @@ var $author$project$Benchmarks$indexedMap = F2(function (f, xs) {
   return tmp.b;
 });
 
-var $author$project$Benchmarks$filter = F2(function (f, xs) {
+var $author$project$ModuloCons$filter = F2(function (f, xs) {
   var tmp = _List_Cons(undefined, _List_Nil);
   var end = tmp;
   for (; xs.b; xs = xs.b) {
@@ -46,7 +46,7 @@ var $author$project$Benchmarks$filter = F2(function (f, xs) {
   return tmp.b;
 });
 
-var $author$project$Benchmarks$append = F2(function (xs, ys) {
+var $author$project$ModuloCons$append = F2(function (xs, ys) {
   var tmp = _List_Cons(undefined, _List_Nil);
   var end = tmp;
   for (; xs.b; xs = xs.b) {
@@ -59,7 +59,7 @@ var $author$project$Benchmarks$append = F2(function (xs, ys) {
   return tmp.b;
 });
 
-var $author$project$Benchmarks$concat = function (lists) {
+var $author$project$ModuloCons$concat = function (lists) {
   var tmp = _List_Cons(undefined, _List_Nil);
   var end = tmp;
   if (!lists.b) {
@@ -78,7 +78,7 @@ var $author$project$Benchmarks$concat = function (lists) {
   return tmp.b;
 };
 
-var $author$project$Benchmarks$intersperse = F2(function (sep, xs) {
+var $author$project$ModuloCons$intersperse = F2(function (sep, xs) {
   if (!xs.b) {
     return xs;
   }
@@ -99,7 +99,7 @@ var $author$project$Benchmarks$intersperse = F2(function (sep, xs) {
   return tmp.b;
 });
 
-var $author$project$Benchmarks$partition = F2(function (f, xs) {
+var $author$project$ModuloCons$partition = F2(function (f, xs) {
   var truesHead = _List_Cons(undefined, _List_Nil);
   var falsesHead = _List_Cons(undefined, _List_Nil);
   var truesEnd = truesHead;
@@ -117,7 +117,7 @@ var $author$project$Benchmarks$partition = F2(function (f, xs) {
   return _Utils_Tuple2(truesHead.b, falsesHead.b);
 });
 
-var $author$project$Benchmarks$unzip = function (pairs) {
+var $author$project$ModuloCons$unzip = function (pairs) {
   var aHead = _List_Cons(undefined, _List_Nil);
   var bHead = _List_Cons(undefined, _List_Nil);
   var aEnd = aHead;

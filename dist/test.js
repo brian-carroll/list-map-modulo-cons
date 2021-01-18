@@ -4570,11 +4570,11 @@ var $elm$core$List$append = F2(
 			return A3($elm$core$List$foldr, $elm$core$List$cons, ys, xs);
 		}
 	});
-var $author$project$Benchmarks$append = $elm$core$List$append;
+var $author$project$ModuloCons$append = $elm$core$List$append;
 var $elm$core$List$concat = function (lists) {
 	return A3($elm$core$List$foldr, $elm$core$List$append, _List_Nil, lists);
 };
-var $author$project$Benchmarks$concat = $elm$core$List$concat;
+var $author$project$ModuloCons$concat = $elm$core$List$concat;
 var $elm_explorations$test$Test$Runner$Failure$BadDescription = {$: 'BadDescription'};
 var $elm_explorations$test$Test$Internal$Batch = function (a) {
 	return {$: 'Batch', a: a};
@@ -4962,7 +4962,7 @@ var $elm$core$List$filter = F2(
 			_List_Nil,
 			list);
 	});
-var $author$project$Benchmarks$filter = $elm$core$List$filter;
+var $author$project$ModuloCons$filter = $elm$core$List$filter;
 var $author$project$HtmlTests$filterFn = function (x) {
 	return !(x % 2);
 };
@@ -5168,7 +5168,7 @@ var $elm_explorations$test$Test$Fuzz$fuzzTest = F3(
 		}
 	});
 var $elm_explorations$test$Test$fuzz = $elm_explorations$test$Test$Fuzz$fuzzTest;
-var $author$project$Benchmarks$indexedMap = $elm$core$List$indexedMap;
+var $author$project$ModuloCons$indexedMap = $elm$core$List$indexedMap;
 var $elm$core$List$intersperse = F2(
 	function (sep, xs) {
 		if (!xs.b) {
@@ -5187,7 +5187,7 @@ var $elm$core$List$intersperse = F2(
 			return A2($elm$core$List$cons, hd, spersed);
 		}
 	});
-var $author$project$Benchmarks$intersperse = $elm$core$List$intersperse;
+var $author$project$ModuloCons$intersperse = $elm$core$List$intersperse;
 var $elm$random$Random$constant = function (value) {
 	return $elm$random$Random$Generator(
 		function (seed) {
@@ -5953,11 +5953,8 @@ var $elm_explorations$test$Fuzz$tuple = function (_v0) {
 var $author$project$HtmlTests$listOfPairs = $elm_explorations$test$Fuzz$list(
 	$elm_explorations$test$Fuzz$tuple(
 		_Utils_Tuple2($author$project$HtmlTests$int, $author$project$HtmlTests$int)));
-var $author$project$Benchmarks$map = F2(
-	function (f, xs) {
-		return A2($elm$core$List$map, f, xs);
-	});
-var $author$project$Benchmarks$map2 = $elm$core$List$map2;
+var $author$project$ModuloCons$map = $elm$core$List$map;
+var $author$project$ModuloCons$map2 = $elm$core$List$map2;
 var $author$project$HtmlTests$pairOfLists = $elm_explorations$test$Fuzz$tuple(
 	_Utils_Tuple2($author$project$HtmlTests$listInt, $author$project$HtmlTests$listInt));
 var $elm$core$List$partition = F2(
@@ -5978,7 +5975,7 @@ var $elm$core$List$partition = F2(
 			_Utils_Tuple2(_List_Nil, _List_Nil),
 			list);
 	});
-var $author$project$Benchmarks$partition = $elm$core$List$partition;
+var $author$project$ModuloCons$partition = $elm$core$List$partition;
 var $elm$core$List$unzip = function (pairs) {
 	var step = F2(
 		function (_v0, _v1) {
@@ -5996,7 +5993,7 @@ var $elm$core$List$unzip = function (pairs) {
 		_Utils_Tuple2(_List_Nil, _List_Nil),
 		pairs);
 };
-var $author$project$Benchmarks$unzip = $elm$core$List$unzip;
+var $author$project$ModuloCons$unzip = $elm$core$List$unzip;
 var $author$project$HtmlTests$suite = A2(
 	$elm_explorations$test$Test$describe,
 	'Modulo cons',
@@ -6010,7 +6007,7 @@ var $author$project$HtmlTests$suite = A2(
 				return A2(
 					$elm_explorations$test$Expect$equal,
 					A2(
-						$author$project$Benchmarks$map,
+						$author$project$ModuloCons$map,
 						$elm$core$Basics$add(5),
 						list),
 					A2(
@@ -6027,7 +6024,7 @@ var $author$project$HtmlTests$suite = A2(
 				var list2 = _v0.b;
 				return A2(
 					$elm_explorations$test$Expect$equal,
-					A3($author$project$Benchmarks$map2, $elm$core$Basics$add, list1, list2),
+					A3($author$project$ModuloCons$map2, $elm$core$Basics$add, list1, list2),
 					A3($elm$core$List$map2, $elm$core$Basics$add, list1, list2));
 			}),
 			A3(
@@ -6037,7 +6034,7 @@ var $author$project$HtmlTests$suite = A2(
 			function (list) {
 				return A2(
 					$elm_explorations$test$Expect$equal,
-					A2($author$project$Benchmarks$indexedMap, $elm$core$Basics$add, list),
+					A2($author$project$ModuloCons$indexedMap, $elm$core$Basics$add, list),
 					A2($elm$core$List$indexedMap, $elm$core$Basics$add, list));
 			}),
 			A3(
@@ -6047,7 +6044,7 @@ var $author$project$HtmlTests$suite = A2(
 			function (list) {
 				return A2(
 					$elm_explorations$test$Expect$equal,
-					A2($author$project$Benchmarks$filter, $author$project$HtmlTests$filterFn, list),
+					A2($author$project$ModuloCons$filter, $author$project$HtmlTests$filterFn, list),
 					A2($elm$core$List$filter, $author$project$HtmlTests$filterFn, list));
 			}),
 			A3(
@@ -6059,7 +6056,7 @@ var $author$project$HtmlTests$suite = A2(
 				var list2 = _v1.b;
 				return A2(
 					$elm_explorations$test$Expect$equal,
-					A2($author$project$Benchmarks$append, list1, list2),
+					A2($author$project$ModuloCons$append, list1, list2),
 					A2($elm$core$List$append, list1, list2));
 			}),
 			A3(
@@ -6069,7 +6066,7 @@ var $author$project$HtmlTests$suite = A2(
 			function (lists) {
 				return A2(
 					$elm_explorations$test$Expect$equal,
-					$author$project$Benchmarks$concat(lists),
+					$author$project$ModuloCons$concat(lists),
 					$elm$core$List$concat(lists));
 			}),
 			A3(
@@ -6079,7 +6076,7 @@ var $author$project$HtmlTests$suite = A2(
 			function (list) {
 				return A2(
 					$elm_explorations$test$Expect$equal,
-					A2($author$project$Benchmarks$intersperse, -1, list),
+					A2($author$project$ModuloCons$intersperse, -1, list),
 					A2($elm$core$List$intersperse, -1, list));
 			}),
 			A3(
@@ -6089,7 +6086,7 @@ var $author$project$HtmlTests$suite = A2(
 			function (list) {
 				return A2(
 					$elm_explorations$test$Expect$equal,
-					A2($author$project$Benchmarks$partition, $author$project$HtmlTests$filterFn, list),
+					A2($author$project$ModuloCons$partition, $author$project$HtmlTests$filterFn, list),
 					A2($elm$core$List$partition, $author$project$HtmlTests$filterFn, list));
 			}),
 			A3(
@@ -6099,7 +6096,7 @@ var $author$project$HtmlTests$suite = A2(
 			function (list) {
 				return A2(
 					$elm_explorations$test$Expect$equal,
-					$author$project$Benchmarks$unzip(list),
+					$author$project$ModuloCons$unzip(list),
 					$elm$core$List$unzip(list));
 			})
 		]));
@@ -6813,9 +6810,9 @@ var $jgrenat$elm_html_test_runner$Test$Runner$Html$viewResults = F2(
 								]))
 						]));
 		}
-  });
+	});
 // https://en.wikipedia.org/wiki/Tail_call#Tail_recursion_modulo_cons
-var $author$project$Benchmarks$map = F2(function (f, xs) {
+var $author$project$ModuloCons$map = F2(function (f, xs) {
   var tmp = _List_Cons(undefined, _List_Nil);
   var end = tmp;
   for (; xs.b; xs = xs.b) {
@@ -6827,7 +6824,7 @@ var $author$project$Benchmarks$map = F2(function (f, xs) {
 });
 
 // slower than core
-var $author$project$Benchmarks$map2 = F3(function (f, xs, ys) {
+var $author$project$ModuloCons$map2 = F3(function (f, xs, ys) {
   var tmp = _List_Cons(undefined, _List_Nil);
   var end = tmp;
   for (; xs.b && ys.b; xs = xs.b, ys = ys.b) {
@@ -6838,7 +6835,7 @@ var $author$project$Benchmarks$map2 = F3(function (f, xs, ys) {
   return tmp.b;
 });
 
-var $author$project$Benchmarks$indexedMap = F2(function (f, xs) {
+var $author$project$ModuloCons$indexedMap = F2(function (f, xs) {
   var tmp = _List_Cons(undefined, _List_Nil);
   var end = tmp;
   for (var i = 0; xs.b; i++, xs = xs.b) {
@@ -6849,7 +6846,7 @@ var $author$project$Benchmarks$indexedMap = F2(function (f, xs) {
   return tmp.b;
 });
 
-var $author$project$Benchmarks$filter = F2(function (f, xs) {
+var $author$project$ModuloCons$filter = F2(function (f, xs) {
   var tmp = _List_Cons(undefined, _List_Nil);
   var end = tmp;
   for (; xs.b; xs = xs.b) {
@@ -6862,7 +6859,7 @@ var $author$project$Benchmarks$filter = F2(function (f, xs) {
   return tmp.b;
 });
 
-var $author$project$Benchmarks$append = F2(function (xs, ys) {
+var $author$project$ModuloCons$append = F2(function (xs, ys) {
   var tmp = _List_Cons(undefined, _List_Nil);
   var end = tmp;
   for (; xs.b; xs = xs.b) {
@@ -6875,7 +6872,7 @@ var $author$project$Benchmarks$append = F2(function (xs, ys) {
   return tmp.b;
 });
 
-var $author$project$Benchmarks$concat = function (lists) {
+var $author$project$ModuloCons$concat = function (lists) {
   var tmp = _List_Cons(undefined, _List_Nil);
   var end = tmp;
   if (!lists.b) {
@@ -6894,7 +6891,7 @@ var $author$project$Benchmarks$concat = function (lists) {
   return tmp.b;
 };
 
-var $author$project$Benchmarks$intersperse = F2(function (sep, xs) {
+var $author$project$ModuloCons$intersperse = F2(function (sep, xs) {
   if (!xs.b) {
     return xs;
   }
@@ -6915,7 +6912,7 @@ var $author$project$Benchmarks$intersperse = F2(function (sep, xs) {
   return tmp.b;
 });
 
-var $author$project$Benchmarks$partition = F2(function (f, xs) {
+var $author$project$ModuloCons$partition = F2(function (f, xs) {
   var truesHead = _List_Cons(undefined, _List_Nil);
   var falsesHead = _List_Cons(undefined, _List_Nil);
   var truesEnd = truesHead;
@@ -6933,7 +6930,7 @@ var $author$project$Benchmarks$partition = F2(function (f, xs) {
   return _Utils_Tuple2(truesHead.b, falsesHead.b);
 });
 
-var $author$project$Benchmarks$unzip = function (pairs) {
+var $author$project$ModuloCons$unzip = function (pairs) {
   var aHead = _List_Cons(undefined, _List_Nil);
   var bHead = _List_Cons(undefined, _List_Nil);
   var aEnd = aHead;
