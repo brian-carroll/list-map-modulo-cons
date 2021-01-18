@@ -4,7 +4,8 @@ module ModuloCons exposing (..)
    These are not the _real_ functions. Those are implemented in JavaScript!
    But I need something to stand in for them in Elm-land. Otherwise there's
    no way to compile the benchmarks and tests.
-   After compiling, I can overwrite them in the JavaScript file
+   After compiling, I can overwrite them in the JavaScript file.
+   It's just a matter of finding `var`s with names like $author$project$ModuloCons$map
 -}
 
 
