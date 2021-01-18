@@ -59,7 +59,7 @@ var $author$project$Main$append = F2(function (xs, ys) {
   return tmp.b;
 });
 
-var $author$project$Main$concat = function (lists) {
+var $author$project$Benchmarks$concat = function (lists) {
   var tmp = _List_Cons(undefined, _List_Nil);
   var end = tmp;
   if (!lists.b) {
