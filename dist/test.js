@@ -4491,9 +4491,20 @@ var $jgrenat$elm_html_test_runner$Test$Runner$Html$showPassedTests = function (_
 			config,
 			{passedTestsDisplay: $jgrenat$elm_html_test_runner$Test$Runner$Html$Show}));
 };
+var $jgrenat$elm_html_test_runner$Test$Runner$Html$withFuzzCount = F2(
+	function (runsCount, _v0) {
+		var config = _v0.a;
+		return $jgrenat$elm_html_test_runner$Test$Runner$Html$Config(
+			_Utils_update(
+				config,
+				{fuzzCount: runsCount}));
+	});
 var $author$project$HtmlTests$config = $jgrenat$elm_html_test_runner$Test$Runner$Html$showPassedTests(
-	$jgrenat$elm_html_test_runner$Test$Runner$Html$defaultConfig(
-		$elm$random$Random$initialSeed(10000)));
+	A2(
+		$jgrenat$elm_html_test_runner$Test$Runner$Html$withFuzzCount,
+		1000,
+		$jgrenat$elm_html_test_runner$Test$Runner$Html$defaultConfig(
+			$elm$random$Random$initialSeed(10000))));
 var $elm$html$Html$div = _VirtualDom_node('div');
 var $elm$html$Html$h1 = _VirtualDom_node('h1');
 var $elm$core$List$foldrHelper = F4(
@@ -4559,94 +4570,11 @@ var $elm$core$List$append = F2(
 			return A3($elm$core$List$foldr, $elm$core$List$cons, ys, xs);
 		}
 	});
+var $author$project$Benchmarks$append = $elm$core$List$append;
 var $elm$core$List$concat = function (lists) {
 	return A3($elm$core$List$foldr, $elm$core$List$append, _List_Nil, lists);
 };
-var $author$project$Benchmarks$concat = function (lists) {
-  A2(_Debug_log, "", lists)
-  var tmp = _List_Cons(undefined, _List_Nil);
-  var end = tmp;
-  if (!lists.b) {
-    return _List_Nil;
-  }
-  for (; lists.b.b; lists = lists.b) {
-    var xs = lists.a;
-    for (; xs.b; xs = xs.b) {
-      var next = _List_Cons(xs.a, _List_Nil);
-      end.b = next;
-      end = next;
-    }
-  }
-  end.b = lists.a;
-
-  return tmp.b;
-};
-var $elm_explorations$test$Test$Runner$Failure$Equality = F2(
-	function (a, b) {
-		return {$: 'Equality', a: a, b: b};
-	});
-var $elm$core$String$contains = _String_contains;
-var $elm_explorations$test$Test$Runner$Failure$Custom = {$: 'Custom'};
-var $elm_explorations$test$Test$Expectation$Fail = function (a) {
-	return {$: 'Fail', a: a};
-};
-var $elm_explorations$test$Test$Expectation$fail = function (_v0) {
-	var description = _v0.description;
-	var reason = _v0.reason;
-	return $elm_explorations$test$Test$Expectation$Fail(
-		{description: description, given: $elm$core$Maybe$Nothing, reason: reason});
-};
-var $elm_explorations$test$Expect$fail = function (str) {
-	return $elm_explorations$test$Test$Expectation$fail(
-		{description: str, reason: $elm_explorations$test$Test$Runner$Failure$Custom});
-};
-var $elm$core$Basics$not = _Basics_not;
-var $elm_explorations$test$Test$Expectation$Pass = {$: 'Pass'};
-var $elm_explorations$test$Expect$pass = $elm_explorations$test$Test$Expectation$Pass;
-var $elm_explorations$test$Test$Internal$toString = _Debug_toString;
-var $elm_explorations$test$Expect$testWith = F5(
-	function (makeReason, label, runTest, expected, actual) {
-		return A2(runTest, actual, expected) ? $elm_explorations$test$Expect$pass : $elm_explorations$test$Test$Expectation$fail(
-			{
-				description: label,
-				reason: A2(
-					makeReason,
-					$elm_explorations$test$Test$Internal$toString(expected),
-					$elm_explorations$test$Test$Internal$toString(actual))
-			});
-	});
-var $elm$core$String$toFloat = _String_toFloat;
-var $elm$core$String$toInt = _String_toInt;
-var $elm_explorations$test$Expect$equateWith = F4(
-	function (reason, comparison, b, a) {
-		var isJust = function (x) {
-			if (x.$ === 'Just') {
-				return true;
-			} else {
-				return false;
-			}
-		};
-		var isFloat = function (x) {
-			return isJust(
-				$elm$core$String$toFloat(x)) && (!isJust(
-				$elm$core$String$toInt(x)));
-		};
-		var usesFloats = isFloat(
-			$elm_explorations$test$Test$Internal$toString(a)) || isFloat(
-			$elm_explorations$test$Test$Internal$toString(b));
-		var floatError = A2($elm$core$String$contains, reason, 'not') ? 'Do not use Expect.notEqual with floats. Use Float.notWithin instead.' : 'Do not use Expect.equal with floats. Use Float.within instead.';
-		return usesFloats ? $elm_explorations$test$Expect$fail(floatError) : A5($elm_explorations$test$Expect$testWith, $elm_explorations$test$Test$Runner$Failure$Equality, reason, comparison, b, a);
-	});
-var $elm_explorations$test$Expect$equal = A2($elm_explorations$test$Expect$equateWith, 'Expect.equal', $elm$core$Basics$eq);
-var $elm$core$Debug$log = _Debug_log;
-var $elm$core$Basics$neq = _Utils_notEqual;
-var $author$project$HtmlTests$checkConcat = function (lists) {
-	var modConsResult = $author$project$Benchmarks$concat(lists);
-	var coreResult = $elm$core$List$concat(lists);
-	var display = {core: coreResult, input: lists, modCons: modConsResult};
-	var _v0 = (!_Utils_eq(modConsResult, coreResult)) ? A2($elm$core$Debug$log, 'failed', display) : display;
-	return A2($elm_explorations$test$Expect$equal, coreResult, modConsResult);
-};
+var $author$project$Benchmarks$concat = $elm$core$List$concat;
 var $elm_explorations$test$Test$Runner$Failure$BadDescription = {$: 'BadDescription'};
 var $elm_explorations$test$Test$Internal$Batch = function (a) {
 	return {$: 'Batch', a: a};
@@ -4907,6 +4835,15 @@ var $elm_explorations$test$Test$Internal$duplicatedName = function () {
 var $elm_explorations$test$Test$Internal$UnitTest = function (a) {
 	return {$: 'UnitTest', a: a};
 };
+var $elm_explorations$test$Test$Expectation$Fail = function (a) {
+	return {$: 'Fail', a: a};
+};
+var $elm_explorations$test$Test$Expectation$fail = function (_v0) {
+	var description = _v0.description;
+	var reason = _v0.reason;
+	return $elm_explorations$test$Test$Expectation$Fail(
+		{description: description, given: $elm$core$Maybe$Nothing, reason: reason});
+};
 var $elm_explorations$test$Test$Internal$failNow = function (record) {
 	return $elm_explorations$test$Test$Internal$UnitTest(
 		function (_v0) {
@@ -4966,6 +4903,69 @@ var $elm_explorations$test$Test$describe = F2(
 			}
 		}
 	});
+var $elm_explorations$test$Test$Runner$Failure$Equality = F2(
+	function (a, b) {
+		return {$: 'Equality', a: a, b: b};
+	});
+var $elm$core$String$contains = _String_contains;
+var $elm_explorations$test$Test$Runner$Failure$Custom = {$: 'Custom'};
+var $elm_explorations$test$Expect$fail = function (str) {
+	return $elm_explorations$test$Test$Expectation$fail(
+		{description: str, reason: $elm_explorations$test$Test$Runner$Failure$Custom});
+};
+var $elm$core$Basics$not = _Basics_not;
+var $elm_explorations$test$Test$Expectation$Pass = {$: 'Pass'};
+var $elm_explorations$test$Expect$pass = $elm_explorations$test$Test$Expectation$Pass;
+var $elm_explorations$test$Test$Internal$toString = _Debug_toString;
+var $elm_explorations$test$Expect$testWith = F5(
+	function (makeReason, label, runTest, expected, actual) {
+		return A2(runTest, actual, expected) ? $elm_explorations$test$Expect$pass : $elm_explorations$test$Test$Expectation$fail(
+			{
+				description: label,
+				reason: A2(
+					makeReason,
+					$elm_explorations$test$Test$Internal$toString(expected),
+					$elm_explorations$test$Test$Internal$toString(actual))
+			});
+	});
+var $elm$core$String$toFloat = _String_toFloat;
+var $elm$core$String$toInt = _String_toInt;
+var $elm_explorations$test$Expect$equateWith = F4(
+	function (reason, comparison, b, a) {
+		var isJust = function (x) {
+			if (x.$ === 'Just') {
+				return true;
+			} else {
+				return false;
+			}
+		};
+		var isFloat = function (x) {
+			return isJust(
+				$elm$core$String$toFloat(x)) && (!isJust(
+				$elm$core$String$toInt(x)));
+		};
+		var usesFloats = isFloat(
+			$elm_explorations$test$Test$Internal$toString(a)) || isFloat(
+			$elm_explorations$test$Test$Internal$toString(b));
+		var floatError = A2($elm$core$String$contains, reason, 'not') ? 'Do not use Expect.notEqual with floats. Use Float.notWithin instead.' : 'Do not use Expect.equal with floats. Use Float.within instead.';
+		return usesFloats ? $elm_explorations$test$Expect$fail(floatError) : A5($elm_explorations$test$Expect$testWith, $elm_explorations$test$Test$Runner$Failure$Equality, reason, comparison, b, a);
+	});
+var $elm_explorations$test$Expect$equal = A2($elm_explorations$test$Expect$equateWith, 'Expect.equal', $elm$core$Basics$eq);
+var $elm$core$List$filter = F2(
+	function (isGood, list) {
+		return A3(
+			$elm$core$List$foldr,
+			F2(
+				function (x, xs) {
+					return isGood(x) ? A2($elm$core$List$cons, x, xs) : xs;
+				}),
+			_List_Nil,
+			list);
+	});
+var $author$project$Benchmarks$filter = $elm$core$List$filter;
+var $author$project$HtmlTests$filterFn = function (x) {
+	return !(x % 2);
+};
 var $elm_explorations$test$Test$Runner$Failure$InvalidFuzzer = {$: 'InvalidFuzzer'};
 var $elm_explorations$test$Test$Internal$blankDescriptionFailure = $elm_explorations$test$Test$Internal$failNow(
 	{
@@ -5168,6 +5168,26 @@ var $elm_explorations$test$Test$Fuzz$fuzzTest = F3(
 		}
 	});
 var $elm_explorations$test$Test$fuzz = $elm_explorations$test$Test$Fuzz$fuzzTest;
+var $author$project$Benchmarks$indexedMap = $elm$core$List$indexedMap;
+var $elm$core$List$intersperse = F2(
+	function (sep, xs) {
+		if (!xs.b) {
+			return _List_Nil;
+		} else {
+			var hd = xs.a;
+			var tl = xs.b;
+			var step = F2(
+				function (x, rest) {
+					return A2(
+						$elm$core$List$cons,
+						sep,
+						A2($elm$core$List$cons, x, rest));
+				});
+			var spersed = A3($elm$core$List$foldr, step, _List_Nil, tl);
+			return A2($elm$core$List$cons, hd, spersed);
+		}
+	});
+var $author$project$Benchmarks$intersperse = $elm$core$List$intersperse;
 var $elm$random$Random$constant = function (value) {
 	return $elm$random$Random$Generator(
 		function (seed) {
@@ -5428,6 +5448,7 @@ var $elm_explorations$test$Fuzz$intRange = F2(
 				},
 				$elm_explorations$test$Shrink$int));
 	});
+var $author$project$HtmlTests$int = A2($elm_explorations$test$Fuzz$intRange, 0, 10);
 var $elm$random$Random$listHelp = F4(
 	function (revList, n, gen, seed) {
 		listHelp:
@@ -5846,51 +5867,241 @@ var $elm_explorations$test$Fuzz$list = function (fuzzer) {
 		},
 		fuzzer);
 };
-var $author$project$HtmlTests$listListIntFuzzer = $elm_explorations$test$Fuzz$list(
-	$elm_explorations$test$Fuzz$list(
-		A2($elm_explorations$test$Fuzz$intRange, 0, 10)));
-var $elm_explorations$test$Test$test = F2(
-	function (untrimmedDesc, thunk) {
-		var desc = $elm$core$String$trim(untrimmedDesc);
-		return $elm$core$String$isEmpty(desc) ? $elm_explorations$test$Test$Internal$blankDescriptionFailure : A2(
-			$elm_explorations$test$Test$Internal$Labeled,
-			desc,
-			$elm_explorations$test$Test$Internal$UnitTest(
-				function (_v0) {
-					return _List_fromArray(
-						[
-							thunk(_Utils_Tuple0)
-						]);
-				}));
+var $author$project$HtmlTests$listInt = $elm_explorations$test$Fuzz$list($author$project$HtmlTests$int);
+var $author$project$HtmlTests$listListInt = $elm_explorations$test$Fuzz$list($author$project$HtmlTests$listInt);
+var $elm$random$Random$map2 = F3(
+	function (func, _v0, _v1) {
+		var genA = _v0.a;
+		var genB = _v1.a;
+		return $elm$random$Random$Generator(
+			function (seed0) {
+				var _v2 = genA(seed0);
+				var a = _v2.a;
+				var seed1 = _v2.b;
+				var _v3 = genB(seed1);
+				var b = _v3.a;
+				var seed2 = _v3.b;
+				return _Utils_Tuple2(
+					A2(func, a, b),
+					seed2);
+			});
 	});
+var $elm$core$Result$map2 = F3(
+	function (func, ra, rb) {
+		if (ra.$ === 'Err') {
+			var x = ra.a;
+			return $elm$core$Result$Err(x);
+		} else {
+			var a = ra.a;
+			if (rb.$ === 'Err') {
+				var x = rb.a;
+				return $elm$core$Result$Err(x);
+			} else {
+				var b = rb.a;
+				return $elm$core$Result$Ok(
+					A2(func, a, b));
+			}
+		}
+	});
+var $elm_explorations$test$Fuzz$map2RoseTree = F3(
+	function (transform, rose1, rose2) {
+		var root1 = rose1.a;
+		var children1 = rose1.b;
+		var root2 = rose2.a;
+		var children2 = rose2.b;
+		var shrink2 = A2(
+			$elm_explorations$test$Lazy$List$map,
+			function (subtree) {
+				return A3($elm_explorations$test$Fuzz$map2RoseTree, transform, rose1, subtree);
+			},
+			children2);
+		var shrink1 = A2(
+			$elm_explorations$test$Lazy$List$map,
+			function (subtree) {
+				return A3($elm_explorations$test$Fuzz$map2RoseTree, transform, subtree, rose2);
+			},
+			children1);
+		var root = A2(transform, root1, root2);
+		return A2(
+			$elm_explorations$test$RoseTree$Rose,
+			root,
+			A2($elm_explorations$test$Lazy$List$append, shrink1, shrink2));
+	});
+var $elm_explorations$test$Fuzz$map2 = F3(
+	function (transform, fuzzA, fuzzB) {
+		return A3(
+			A2(
+				$elm$core$Basics$composeL,
+				A2($elm$core$Basics$composeL, $elm$core$Result$map2, $elm$random$Random$map2),
+				$elm_explorations$test$Fuzz$map2RoseTree),
+			transform,
+			fuzzA,
+			fuzzB);
+	});
+var $elm_explorations$test$Fuzz$tuple = function (_v0) {
+	var fuzzerA = _v0.a;
+	var fuzzerB = _v0.b;
+	return A3(
+		$elm_explorations$test$Fuzz$map2,
+		F2(
+			function (a, b) {
+				return _Utils_Tuple2(a, b);
+			}),
+		fuzzerA,
+		fuzzerB);
+};
+var $author$project$HtmlTests$listOfPairs = $elm_explorations$test$Fuzz$list(
+	$elm_explorations$test$Fuzz$tuple(
+		_Utils_Tuple2($author$project$HtmlTests$int, $author$project$HtmlTests$int)));
+var $author$project$Benchmarks$map = F2(
+	function (f, xs) {
+		return A2($elm$core$List$map, f, xs);
+	});
+var $author$project$Benchmarks$map2 = $elm$core$List$map2;
+var $author$project$HtmlTests$pairOfLists = $elm_explorations$test$Fuzz$tuple(
+	_Utils_Tuple2($author$project$HtmlTests$listInt, $author$project$HtmlTests$listInt));
+var $elm$core$List$partition = F2(
+	function (pred, list) {
+		var step = F2(
+			function (x, _v0) {
+				var trues = _v0.a;
+				var falses = _v0.b;
+				return pred(x) ? _Utils_Tuple2(
+					A2($elm$core$List$cons, x, trues),
+					falses) : _Utils_Tuple2(
+					trues,
+					A2($elm$core$List$cons, x, falses));
+			});
+		return A3(
+			$elm$core$List$foldr,
+			step,
+			_Utils_Tuple2(_List_Nil, _List_Nil),
+			list);
+	});
+var $author$project$Benchmarks$partition = $elm$core$List$partition;
+var $elm$core$List$unzip = function (pairs) {
+	var step = F2(
+		function (_v0, _v1) {
+			var x = _v0.a;
+			var y = _v0.b;
+			var xs = _v1.a;
+			var ys = _v1.b;
+			return _Utils_Tuple2(
+				A2($elm$core$List$cons, x, xs),
+				A2($elm$core$List$cons, y, ys));
+		});
+	return A3(
+		$elm$core$List$foldr,
+		step,
+		_Utils_Tuple2(_List_Nil, _List_Nil),
+		pairs);
+};
+var $author$project$Benchmarks$unzip = $elm$core$List$unzip;
 var $author$project$HtmlTests$suite = A2(
 	$elm_explorations$test$Test$describe,
 	'Modulo cons',
 	_List_fromArray(
 		[
-			A2(
-			$elm_explorations$test$Test$test,
-			'concat [[]]',
+			A3(
+			$elm_explorations$test$Test$fuzz,
+			$author$project$HtmlTests$listInt,
+			'map',
+			function (list) {
+				return A2(
+					$elm_explorations$test$Expect$equal,
+					A2(
+						$author$project$Benchmarks$map,
+						$elm$core$Basics$add(5),
+						list),
+					A2(
+						$elm$core$List$map,
+						$elm$core$Basics$add(5),
+						list));
+			}),
+			A3(
+			$elm_explorations$test$Test$fuzz,
+			$author$project$HtmlTests$pairOfLists,
+			'map2',
 			function (_v0) {
-				return $author$project$HtmlTests$checkConcat(
-					_List_fromArray(
-						[_List_Nil]));
+				var list1 = _v0.a;
+				var list2 = _v0.b;
+				return A2(
+					$elm_explorations$test$Expect$equal,
+					A3($author$project$Benchmarks$map2, $elm$core$Basics$add, list1, list2),
+					A3($elm$core$List$map2, $elm$core$Basics$add, list1, list2));
 			}),
-			A2(
-			$elm_explorations$test$Test$test,
-			'concat [[], []]',
+			A3(
+			$elm_explorations$test$Test$fuzz,
+			$author$project$HtmlTests$listInt,
+			'indexedMap',
+			function (list) {
+				return A2(
+					$elm_explorations$test$Expect$equal,
+					A2($author$project$Benchmarks$indexedMap, $elm$core$Basics$add, list),
+					A2($elm$core$List$indexedMap, $elm$core$Basics$add, list));
+			}),
+			A3(
+			$elm_explorations$test$Test$fuzz,
+			$author$project$HtmlTests$listInt,
+			'filter',
+			function (list) {
+				return A2(
+					$elm_explorations$test$Expect$equal,
+					A2($author$project$Benchmarks$filter, $author$project$HtmlTests$filterFn, list),
+					A2($elm$core$List$filter, $author$project$HtmlTests$filterFn, list));
+			}),
+			A3(
+			$elm_explorations$test$Test$fuzz,
+			$author$project$HtmlTests$pairOfLists,
+			'append',
 			function (_v1) {
-				return $author$project$HtmlTests$checkConcat(
-					_List_fromArray(
-						[_List_Nil, _List_Nil]));
+				var list1 = _v1.a;
+				var list2 = _v1.b;
+				return A2(
+					$elm_explorations$test$Expect$equal,
+					A2($author$project$Benchmarks$append, list1, list2),
+					A2($elm$core$List$append, list1, list2));
 			}),
-			A2(
-			$elm_explorations$test$Test$test,
-			'concat []',
-			function (_v2) {
-				return $author$project$HtmlTests$checkConcat(_List_Nil);
+			A3(
+			$elm_explorations$test$Test$fuzz,
+			$author$project$HtmlTests$listListInt,
+			'concat',
+			function (lists) {
+				return A2(
+					$elm_explorations$test$Expect$equal,
+					$author$project$Benchmarks$concat(lists),
+					$elm$core$List$concat(lists));
 			}),
-			A3($elm_explorations$test$Test$fuzz, $author$project$HtmlTests$listListIntFuzzer, 'concat fuzz', $author$project$HtmlTests$checkConcat)
+			A3(
+			$elm_explorations$test$Test$fuzz,
+			$author$project$HtmlTests$listInt,
+			'intersperse',
+			function (list) {
+				return A2(
+					$elm_explorations$test$Expect$equal,
+					A2($author$project$Benchmarks$intersperse, -1, list),
+					A2($elm$core$List$intersperse, -1, list));
+			}),
+			A3(
+			$elm_explorations$test$Test$fuzz,
+			$author$project$HtmlTests$listInt,
+			'partition',
+			function (list) {
+				return A2(
+					$elm_explorations$test$Expect$equal,
+					A2($author$project$Benchmarks$partition, $author$project$HtmlTests$filterFn, list),
+					A2($elm$core$List$partition, $author$project$HtmlTests$filterFn, list));
+			}),
+			A3(
+			$elm_explorations$test$Test$fuzz,
+			$author$project$HtmlTests$listOfPairs,
+			'unzip',
+			function (list) {
+				return A2(
+					$elm_explorations$test$Expect$equal,
+					$author$project$Benchmarks$unzip(list),
+					$elm$core$List$unzip(list));
+			})
 		]));
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
@@ -6210,24 +6421,7 @@ var $elm$core$List$filterMap = F2(
 			xs);
 	});
 var $elm$html$Html$h3 = _VirtualDom_node('h3');
-var $elm$core$List$intersperse = F2(
-	function (sep, xs) {
-		if (!xs.b) {
-			return _List_Nil;
-		} else {
-			var hd = xs.a;
-			var tl = xs.b;
-			var step = F2(
-				function (x, rest) {
-					return A2(
-						$elm$core$List$cons,
-						sep,
-						A2($elm$core$List$cons, x, rest));
-				});
-			var spersed = A3($elm$core$List$foldr, step, _List_Nil, tl);
-			return A2($elm$core$List$cons, hd, spersed);
-		}
-	});
+var $elm$core$Basics$neq = _Utils_notEqual;
 var $elm_explorations$test$Test$Runner$getFailureReason = function (expectation) {
 	if (expectation.$ === 'Pass') {
 		return $elm$core$Maybe$Nothing;
@@ -6619,9 +6813,145 @@ var $jgrenat$elm_html_test_runner$Test$Runner$Html$viewResults = F2(
 								]))
 						]));
 		}
-	});
+  });
+// https://en.wikipedia.org/wiki/Tail_call#Tail_recursion_modulo_cons
+var $author$project$Benchmarks$map = F2(function (f, xs) {
+  var tmp = _List_Cons(undefined, _List_Nil);
+  var end = tmp;
+  for (; xs.b; xs = xs.b) {
+    var next = _List_Cons(f(xs.a), _List_Nil);
+    end.b = next;
+    end = next;
+  }
+  return tmp.b;
+});
 
-  
+// slower than core
+var $author$project$Benchmarks$map2 = F3(function (f, xs, ys) {
+  var tmp = _List_Cons(undefined, _List_Nil);
+  var end = tmp;
+  for (; xs.b && ys.b; xs = xs.b, ys = ys.b) {
+    var next = _List_Cons(A2(f, xs.a, ys.a), _List_Nil);
+    end.b = next;
+    end = next;
+  }
+  return tmp.b;
+});
+
+var $author$project$Benchmarks$indexedMap = F2(function (f, xs) {
+  var tmp = _List_Cons(undefined, _List_Nil);
+  var end = tmp;
+  for (var i = 0; xs.b; i++, xs = xs.b) {
+    var next = _List_Cons(A2(f, i, xs.a), _List_Nil);
+    end.b = next;
+    end = next;
+  }
+  return tmp.b;
+});
+
+var $author$project$Benchmarks$filter = F2(function (f, xs) {
+  var tmp = _List_Cons(undefined, _List_Nil);
+  var end = tmp;
+  for (; xs.b; xs = xs.b) {
+    if (f(xs.a)) {
+      var next = _List_Cons(xs.a, _List_Nil);
+      end.b = next;
+      end = next;
+    }
+  }
+  return tmp.b;
+});
+
+var $author$project$Benchmarks$append = F2(function (xs, ys) {
+  var tmp = _List_Cons(undefined, _List_Nil);
+  var end = tmp;
+  for (; xs.b; xs = xs.b) {
+    var next = _List_Cons(xs.a, _List_Nil);
+    end.b = next;
+    end = next;
+  }
+  end.b = ys;
+
+  return tmp.b;
+});
+
+var $author$project$Benchmarks$concat = function (lists) {
+  var tmp = _List_Cons(undefined, _List_Nil);
+  var end = tmp;
+  if (!lists.b) {
+    return _List_Nil;
+  }
+  for (; lists.b.b; lists = lists.b) {
+    var xs = lists.a;
+    for (; xs.b; xs = xs.b) {
+      var next = _List_Cons(xs.a, _List_Nil);
+      end.b = next;
+      end = next;
+    }
+  }
+  end.b = lists.a;
+
+  return tmp.b;
+};
+
+var $author$project$Benchmarks$intersperse = F2(function (sep, xs) {
+  if (!xs.b) {
+    return xs;
+  }
+  var tmp = _List_Cons(undefined, _List_Nil);
+  var end = tmp;
+
+  end.b = _List_Cons(xs.a, _List_Nil);
+  end = end.b;
+  xs = xs.b;
+
+  for (; xs.b; xs = xs.b) {
+    var valNode = _List_Cons(xs.a, _List_Nil);
+    var sepNode = _List_Cons(sep, valNode);
+    end.b = sepNode;
+    end = valNode;
+  }
+
+  return tmp.b;
+});
+
+var $author$project$Benchmarks$partition = F2(function (f, xs) {
+  var truesHead = _List_Cons(undefined, _List_Nil);
+  var falsesHead = _List_Cons(undefined, _List_Nil);
+  var truesEnd = truesHead;
+  var falsesEnd = falsesHead;
+  for (; xs.b; xs = xs.b) {
+    var next = _List_Cons(xs.a, _List_Nil);
+    if (f(xs.a)) {
+      truesEnd.b = next;
+      truesEnd = next;
+    } else {
+      falsesEnd.b = next;
+      falsesEnd = next;
+    }
+  }
+  return _Utils_Tuple2(truesHead.b, falsesHead.b);
+});
+
+var $author$project$Benchmarks$unzip = function (pairs) {
+  var aHead = _List_Cons(undefined, _List_Nil);
+  var bHead = _List_Cons(undefined, _List_Nil);
+  var aEnd = aHead;
+  var bEnd = bHead;
+  for (; pairs.b; pairs = pairs.b) {
+    var tuple = pairs.a;
+
+    var aNext = _List_Cons(tuple.a, _List_Nil);
+    aEnd.b = aNext;
+    aEnd = aNext;
+
+    var bNext = _List_Cons(tuple.b, _List_Nil);
+    bEnd.b = bNext;
+    bEnd = bNext;
+  }
+  return _Utils_Tuple2(aHead.b, bHead.b);
+};
+
 var $author$project$HtmlTests$main = A2(
 	$elm$html$Html$div,
 	_List_Nil,
